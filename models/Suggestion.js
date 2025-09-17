@@ -37,6 +37,32 @@ SuggestionSchema.methods.toPublicJSON = function () {
   return obj;
 };
 
+// Add validation for assignedDepartment to ensure it exists and is active
+SuggestionSchema.pre('save', async function(next) {
+  if (this.assignedDepartment && this.isModified('assignedDepartment')) {
+    try {
+      const Department = mongoose.model('Department');
+      const department = await Department.findOne({ 
+        name: this.assignedDepartment, 
+        isActive: true 
+      });
+      
+      if (!department) {
+        const error = new Error('Invalid or inactive department');
+        error.name = 'ValidationError';
+        return next(error);
+      }
+    } catch (err) {
+      // If Department model doesn't exist yet, skip validation
+      if (err.message.includes('Schema hasn\'t been registered')) {
+        return next();
+      }
+      return next(err);
+    }
+  }
+  next();
+});
+
 SuggestionSchema.index({ createdAt: -1 });
 
 module.exports = {

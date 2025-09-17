@@ -7,6 +7,7 @@ const fs = require('fs');
 const multer = require('multer');
 const { User, ROLES } = require('../models/User');
 const { Suggestion, CATEGORIES, STATUSES } = require('../models/Suggestion');
+const { Department } = require('../models/Department');
 const { verifyJWT, optionalAuth, requireRole } = require('../middleware/auth');
 
 const router = express.Router();
@@ -123,6 +124,19 @@ router.post('/api/auth/logout', verifyJWT, async (_req, res) => {
 });
 
 /**
+ * Department Routes (Public - Read Only)
+ */
+// Get all active departments (public access for form dropdowns)
+router.get('/api/departments', async (req, res) => {
+  try {
+    const departments = await Department.find({ isActive: true }).sort({ name: 1 });
+    return res.json({ departments });
+  } catch (err) {
+    return res.status(500).json({ message: 'Failed to fetch departments', error: err.message });
+  }
+});
+
+/**
  * Suggestion Routes
  */
 
@@ -131,7 +145,7 @@ router.post('/api/auth/logout', verifyJWT, async (_req, res) => {
 // and files under field name "media"
 router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
   try {
-    const { category, description,assignedDepartment } = req.body || {};
+    const { category, description, assignedDepartment } = req.body || {};
     const anonymous = String(req.body?.anonymous || 'true') === 'true';
 
     if (!category || !description) {
@@ -144,6 +158,14 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
       return res.status(401).json({ message: 'Authentication required for non-anonymous submission' });
     }
 
+    // Validate department if provided
+    if (assignedDepartment) {
+      const department = await Department.findOne({ name: assignedDepartment, isActive: true });
+      if (!department) {
+        return res.status(400).json({ message: 'Invalid or inactive department' });
+      }
+    }
+
     const files = (req.files || []).map((f) => ({
       type: f.mimetype.startsWith('image/') ? 'image' : 'video',
       url: `${req.protocol}://${req.get('host')}/uploads/${f.filename}`,
@@ -152,7 +174,7 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
       size: f.size
     }));
 
-    console.log(assignedDepartment,"assigned detpartment");
+    console.log(assignedDepartment, "assigned department");
 
     const doc = await Suggestion.create({
       user: anonymous ? undefined : req.user?.id,
@@ -284,6 +306,14 @@ router.patch('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), asyn
       return res.status(400).json({ message: `Invalid category. Allowed: ${CATEGORIES.join(', ')}` });
     }
 
+    // Validate department if being updated
+    if (updates.assignedDepartment) {
+      const department = await Department.findOne({ name: updates.assignedDepartment, isActive: true });
+      if (!department) {
+        return res.status(400).json({ message: 'Invalid or inactive department' });
+      }
+    }
+
     const doc = await Suggestion.findByIdAndUpdate(id, updates, { new: true });
     if (!doc) return res.status(404).json({ message: 'Not found' });
     return res.json({ suggestion: doc.toPublicJSON() });
@@ -304,6 +334,154 @@ router.delete('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), asy
   }
 });
 
+/**
+ * Admin Department CRUD Routes
+ */
+
+// Get all departments (admin only - includes inactive)
+router.get('/api/admin/departments', verifyJWT, requireRole('admin'), async (req, res) => {
+  try {
+    const {
+      q,
+      isActive,
+      page: pageStr,
+      limit: limitStr
+    } = req.query;
+
+    const page = Math.max(parseInt(pageStr || '1', 10), 1);
+    const limit = Math.min(Math.max(parseInt(limitStr || '20', 10), 1), 100);
+    const skip = (page - 1) * limit;
+
+    const filter = {};
+    if (isActive !== undefined) filter.isActive = isActive === 'true';
+    if (q) {
+      filter.$or = [
+        { name: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } },
+        { head: { $regex: q, $options: 'i' } }
+      ];
+    }
+
+    const [items, total] = await Promise.all([
+      Department.find(filter).sort({ name: 1 }).skip(skip).limit(limit),
+      Department.countDocuments(filter)
+    ]);
+
+    return res.json({
+      page,
+      limit,
+      total,
+      departments: items
+    });
+  } catch (err) {
+    return res.status(500).json({ message: 'Failed to fetch departments', error: err.message });
+  }
+});
+
+// Create new department
+router.post('/api/admin/departments', verifyJWT, requireRole('admin'), async (req, res) => {
+  try {
+    const { name, description, head, email, phone, isActive } = req.body || {};
+    
+    if (!name) {
+      return res.status(400).json({ message: 'Department name is required' });
+    }
+
+    // Check if department name already exists
+    const existing = await Department.findOne({ name: name.trim() });
+    if (existing) {
+      return res.status(409).json({ message: 'Department name already exists' });
+    }
+
+    const department = await Department.create({
+      name: name.trim(),
+      description,
+      head,
+      email,
+      phone,
+      isActive: isActive !== false // Default to true unless explicitly set to false
+    });
+
+    return res.status(201).json({ department });
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ message: 'Department name already exists' });
+    }
+    return res.status(500).json({ message: 'Failed to create department', error: err.message });
+  }
+});
+
+// Get single department
+router.get('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
+
+    const department = await Department.findById(id);
+    if (!department) return res.status(404).json({ message: 'Department not found' });
+
+    return res.json({ department });
+  } catch (err) {
+    return res.status(500).json({ message: 'Failed to fetch department', error: err.message });
+  }
+});
+
+// Update department
+router.put('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
+
+    const updates = pick(req.body || {}, ['name', 'description', 'head', 'email', 'phone', 'isActive']);
+    
+    if (updates.name) {
+      updates.name = updates.name.trim();
+      // Check if name already exists for another department
+      const existing = await Department.findOne({ name: updates.name, _id: { $ne: id } });
+      if (existing) {
+        return res.status(409).json({ message: 'Department name already exists' });
+      }
+    }
+
+    const department = await Department.findByIdAndUpdate(id, updates, { new: true, runValidators: true });
+    if (!department) return res.status(404).json({ message: 'Department not found' });
+
+    return res.json({ department });
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ message: 'Department name already exists' });
+    }
+    return res.status(500).json({ message: 'Failed to update department', error: err.message });
+  }
+});
+
+// Delete department (soft delete by setting isActive to false)
+router.delete('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
+    
+    // Check if department is assigned to any suggestions
+    const suggestionsCount = await Suggestion.countDocuments({ assignedDepartment: { $exists: true, $ne: null } });
+    const department = await Department.findById(id);
+    
+    if (!department) return res.status(404).json({ message: 'Department not found' });
+    
+    if (suggestionsCount > 0) {
+      // If department has suggestions, soft delete (deactivate)
+      department.isActive = false;
+      await department.save();
+      return res.json({ message: 'Department deactivated (has associated suggestions)', department });
+    } else {
+      // If no suggestions, hard delete
+      await Department.findByIdAndDelete(id);
+      return res.json({ message: 'Department deleted permanently' });
+    }
+  } catch (err) {
+    return res.status(500).json({ message: 'Failed to delete department', error: err.message });
+  }
+});
+
 // Analytics & Reports
 router.get('/api/admin/reports/summary', verifyJWT, requireRole('admin'), async (_req, res) => {
   try {
@@ -315,6 +493,12 @@ router.get('/api/admin/reports/summary', verifyJWT, requireRole('admin'), async 
     // Counts by category
     const byCategory = await Suggestion.aggregate([
       { $group: { _id: '$category', count: { $sum: 1 } } }
+    ]);
+
+    // Counts by department
+    const byDepartment = await Suggestion.aggregate([
+      { $match: { assignedDepartment: { $ne: null } } },
+      { $group: { _id: '$assignedDepartment', count: { $sum: 1 } } }
     ]);
 
     // Monthly counts (last 12 months)
@@ -333,10 +517,23 @@ router.get('/api/admin/reports/summary', verifyJWT, requireRole('admin'), async 
       { $sort: { '_id.year': 1, '_id.month': 1 } }
     ]);
 
+    // Department statistics
+    const departmentStats = await Department.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: 1 },
+          active: { $sum: { $cond: ['$isActive', 1, 0] } }
+        }
+      }
+    ]);
+
     return res.json({
       byStatus,
       byCategory,
-      monthly
+      byDepartment,
+      monthly,
+      departmentStats: departmentStats[0] || { total: 0, active: 0 }
     });
   } catch (err) {
     return res.status(500).json({ message: 'Failed to build report', error: err.message });

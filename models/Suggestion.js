@@ -23,6 +23,7 @@ const SuggestionSchema = new mongoose.Schema(
     status: { type: String, enum: STATUSES, default: 'Received', index: true },
     assignedDepartment: { type: String, default: null, index: true },
     assignedTo: { type: String, default: null },
+    actionTaken: { type: String, default: null, maxlength: 20000 }, // New field for action taken
     media: { type: [MediaSchema], default: [] }
   },
   { timestamps: true }

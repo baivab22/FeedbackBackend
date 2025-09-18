@@ -141,11 +141,11 @@ router.get('/api/departments', async (req, res) => {
  */
 
 // Create suggestion (anonymous or authenticated) with optional media files
-// Accepts multipart/form-data with fields: category, description, anonymous
+// Accepts multipart/form-data with fields: category, description, anonymous, actionTaken
 // and files under field name "media"
 router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
   try {
-    const { category, description, assignedDepartment } = req.body || {};
+    const { category, description, assignedDepartment, actionTaken } = req.body || {};
     const anonymous = String(req.body?.anonymous || 'true') === 'true';
 
     if (!category || !description) {
@@ -166,6 +166,11 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
       }
     }
 
+    // Validate actionTaken length if provided
+    if (actionTaken && actionTaken.length > 20000) {
+      return res.status(400).json({ message: 'Action taken cannot exceed 20000 characters' });
+    }
+
     const files = (req.files || []).map((f) => ({
       type: f.mimetype.startsWith('image/') ? 'image' : 'video',
       url: `${req.protocol}://${req.get('host')}/uploads/${f.filename}`,
@@ -182,7 +187,8 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
       category,
       description,
       media: files,
-      assignedDepartment
+      assignedDepartment,
+      actionTaken: actionTaken || null // Include actionTaken if provided
     });
     return res.status(201).json({ suggestion: doc.toPublicJSON() });
   } catch (err) {
@@ -211,6 +217,7 @@ router.get('/api/suggestions/track/:id', async (req, res) => {
       id: doc._id,
       status: doc.status,
       category: doc.category,
+      actionTaken: doc.actionTaken, // Include actionTaken in tracking
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt
     };
@@ -273,7 +280,11 @@ router.get('/api/admin/suggestions', verifyJWT, requireRole('admin'), async (req
       if (to) filter.createdAt.$lte = new Date(to);
     }
     if (q) {
-      filter.description = { $regex: q, $options: 'i' };
+      // Search in both description and actionTaken fields
+      filter.$or = [
+        { description: { $regex: q, $options: 'i' } },
+        { actionTaken: { $regex: q, $options: 'i' } }
+      ];
     }
 
     const [items, total] = await Promise.all([
@@ -292,18 +303,24 @@ router.get('/api/admin/suggestions', verifyJWT, requireRole('admin'), async (req
   }
 });
 
-// Update suggestion fields: status, category, assignedDepartment, assignedTo
+// Update suggestion fields: status, category, assignedDepartment, assignedTo, actionTaken
 router.patch('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid suggestion id' });
 
-    const updates = pick(req.body || {}, ['status', 'category', 'assignedDepartment', 'assignedTo']);
+    const updates = pick(req.body || {}, ['status', 'category', 'assignedDepartment', 'assignedTo', 'actionTaken']);
+    
     if (updates.status && !STATUSES.includes(updates.status)) {
       return res.status(400).json({ message: `Invalid status. Allowed: ${STATUSES.join(', ')}` });
     }
     if (updates.category && !CATEGORIES.includes(updates.category)) {
       return res.status(400).json({ message: `Invalid category. Allowed: ${CATEGORIES.join(', ')}` });
+    }
+
+    // Validate actionTaken length if provided
+    if (updates.actionTaken && updates.actionTaken.length > 2000) {
+      return res.status(400).json({ message: 'Action taken cannot exceed 20000 characters' });
     }
 
     // Validate department if being updated
@@ -528,12 +545,24 @@ router.get('/api/admin/reports/summary', verifyJWT, requireRole('admin'), async 
       }
     ]);
 
+    // Action taken statistics (suggestions with action taken vs without)
+    const actionStats = await Suggestion.aggregate([
+      {
+        $group: {
+          _id: null,
+          withAction: { $sum: { $cond: [{ $ne: ['$actionTaken', null] }, 1, 0] } },
+          withoutAction: { $sum: { $cond: [{ $eq: ['$actionTaken', null] }, 1, 0] } }
+        }
+      }
+    ]);
+
     return res.json({
       byStatus,
       byCategory,
       byDepartment,
       monthly,
-      departmentStats: departmentStats[0] || { total: 0, active: 0 }
+      departmentStats: departmentStats[0] || { total: 0, active: 0 },
+      actionStats: actionStats[0] || { withAction: 0, withoutAction: 0 }
     });
   } catch (err) {
     return res.status(500).json({ message: 'Failed to build report', error: err.message });

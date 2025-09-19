@@ -122,6 +122,20 @@ app.use((err, req, res, _next) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
+
+
+const corpPolicy = process.env.CORP_POLICY || 'cross-origin';
+
+app.use('/uploads', express.static('uploads', {
+  setHeaders: (res, _path, _stat) => {
+    res.setHeader('Cross-Origin-Resource-Policy', corpPolicy);
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  }
+}));
+
+
 // ---------------- Start Server ----------------
 const PORT = process.env.PORT || 4000;
 

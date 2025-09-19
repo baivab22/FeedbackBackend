@@ -58,28 +58,30 @@ app.use(xssClean());
 app.use(mongoSanitize());
 app.use(morgan('dev'));
 
-// ---------------- Static Files ----------------
-// Add CORP header for static uploads (different in dev vs prod)
+// ---------------- Static Files Configuration ----------------
+// 🔥 FIXED: Single, consistent static file serving with proper CORP headers
 app.use('/uploads', (req, res, next) => {
-  const isDev = process.env.NODE_ENV !== 'production';
-  const corpPolicy = isDev ? 'cross-origin' : 'same-site';
-
-  res.setHeader('Cross-Origin-Resource-Policy', corpPolicy);
-
-  // Keep CORS headers too for safety
   const origin = req.headers.origin;
+  
+  // Set CORP to allow cross-origin access
+  res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+  
+  // Set CORS headers for static files
   if (!origin || allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin || '*');
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
   }
-  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-
-  console.log(`📁 Static file request from origin: ${origin} (CORP: ${corpPolicy})`);
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  
+  // Add cache headers for better performance
+  res.setHeader('Cache-Control', 'public, max-age=31536000'); // 1 year
+  
+  console.log(`📁 Static file request from origin: ${origin} (CORP: cross-origin)`);
   next();
 });
 
-// Serve uploads folder
-app.use('/uploads', express.static('uploads'));
+// Serve uploads folder with proper headers
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ---------------- Rate Limiting ----------------
 const authLimiter = rateLimit({
@@ -121,20 +123,6 @@ app.use((err, req, res, _next) => {
 
   res.status(500).json({ message: 'Internal Server Error' });
 });
-
-
-
-const corpPolicy = process.env.CORP_POLICY || 'cross-origin';
-
-app.use('/uploads', express.static('uploads', {
-  setHeaders: (res, _path, _stat) => {
-    res.setHeader('Cross-Origin-Resource-Policy', corpPolicy);
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  }
-}));
-
 
 // ---------------- Start Server ----------------
 const PORT = process.env.PORT || 4000;

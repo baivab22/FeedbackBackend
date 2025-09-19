@@ -253,7 +253,7 @@ router.get('/api/public/resolved', async (req, res) => {
 /**
  * Admin Routes
  */
-router.get('/api/admin/suggestions', verifyJWT, requireRole('admin'), async (req, res) => {
+router.get('/api/admin/suggestions', async (req, res) => {
   try {
     const {
       category,
@@ -304,7 +304,7 @@ router.get('/api/admin/suggestions', verifyJWT, requireRole('admin'), async (req
 });
 
 // Update suggestion fields: status, category, assignedDepartment, assignedTo, actionTaken
-router.patch('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+router.patch('/api/admin/suggestions/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid suggestion id' });
@@ -339,7 +339,7 @@ router.patch('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), asyn
   }
 });
 
-router.delete('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+router.delete('/api/admin/suggestions/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid suggestion id' });
@@ -356,7 +356,7 @@ router.delete('/api/admin/suggestions/:id', verifyJWT, requireRole('admin'), asy
  */
 
 // Get all departments (admin only - includes inactive)
-router.get('/api/admin/departments', verifyJWT, requireRole('admin'), async (req, res) => {
+router.get('/api/admin/departments', async (req, res) => {
   try {
     const {
       q,
@@ -396,7 +396,7 @@ router.get('/api/admin/departments', verifyJWT, requireRole('admin'), async (req
 });
 
 // Create new department
-router.post('/api/admin/departments', verifyJWT, requireRole('admin'), async (req, res) => {
+router.post('/api/admin/departments', async (req, res) => {
   try {
     const { name, description, head, email, phone, isActive } = req.body || {};
     
@@ -429,7 +429,7 @@ router.post('/api/admin/departments', verifyJWT, requireRole('admin'), async (re
 });
 
 // Get single department
-router.get('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+router.get('/api/admin/departments/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
@@ -444,7 +444,7 @@ router.get('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async 
 });
 
 // Update department
-router.put('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+router.put('/api/admin/departments/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
@@ -473,7 +473,7 @@ router.put('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async 
 });
 
 // Delete department (soft delete by setting isActive to false)
-router.delete('/api/admin/departments/:id', verifyJWT, requireRole('admin'), async (req, res) => {
+router.delete('/api/admin/departments/:id', async (req, res) => {
   try {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) return res.status(400).json({ message: 'Invalid department id' });
@@ -500,7 +500,7 @@ router.delete('/api/admin/departments/:id', verifyJWT, requireRole('admin'), asy
 });
 
 // Analytics & Reports
-router.get('/api/admin/reports/summary', verifyJWT, requireRole('admin'), async (_req, res) => {
+router.get('/api/admin/reports/summary', async (_req, res) => {
   try {
     // Counts by status
     const byStatus = await Suggestion.aggregate([

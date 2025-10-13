@@ -9,6 +9,9 @@ const xssClean = require('xss-clean');
 const mongoSanitize = require('express-mongo-sanitize');
 const { connectDB } = require('./config/db');
 const routes = require('./routes');
+// const progressRoutes = require('./routes/ProgressRoutes');
+
+
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
@@ -90,6 +93,11 @@ const authLimiter = rateLimit({
 });
 app.use('/api/auth', authLimiter);
 app.use('/api/suggestions', rateLimit({ windowMs: 15 * 60 * 1000, max: 200 }));
+app.use('/api/reports', require('./routes/progressReports'));
+// app.use('/api/progress', progressRoutes);
+
+// app.use('/api/progress', progressRoutes);
+
 
 // ---------------- Routes ----------------
 app.use(routes);

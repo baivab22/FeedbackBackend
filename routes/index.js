@@ -9,6 +9,7 @@ const { User, ROLES } = require('../models/User');
 const { Suggestion, CATEGORIES, STATUSES } = require('../models/Suggestion');
 const { Department } = require('../models/Department');
 const { verifyJWT, optionalAuth, requireRole } = require('../middleware/auth');
+const progressController = require('../controllers/ProgressController');
 
 
 const College = require('../models/collegeDataModel');
@@ -1198,7 +1199,7 @@ router.get('/api/colleges/system/enrollment-trends', async (req, res) => {
           absoluteGrowth: current.totalEnrollment - previous.totalEnrollment
         });
       }
-    });
+    };
 
     // Enrollment projections for next 3 years
     const avgGrowthRate = enrollmentGrowth.length > 0 
@@ -2086,6 +2087,31 @@ router.get('/api/colleges/budget/utilization-tracking', async (req, res) => {
     return res.status(500).json({ message: 'Failed to track budget utilization', error: err.message });
   }
 });
+
+
+
+router.get('/api/progress', progressController.getAllReports);
+router.get('/api/progress/analytics', progressController.getAnalytics);
+router.get('/api/progress/export/csv', progressController.exportCSV);
+router.get('/api/progress/college/:collegeId', progressController.getReportsByCollege);
+router.get('/api/progress/:id', progressController.getReportById);
+
+router.post('/api/progress', progressController.createReport);
+
+// PUT routes
+router.put('/api/progress/:id', progressController.updateReport);
+
+// DELETE routesi
+router.delete('/api/progress/:id', progressController.deleteReport);
+
+// POST routes
+router.post('/', progressController.createReport);
+
+// PUT routes
+router.put('/:id', progressController.updateReport);
+
+// DELETE routesi
+router.delete('/:id', progressController.deleteReport);
 
 // Get project monitoring dashboard
 router.get('/api/colleges/projects/monitoring', async (req, res) => {

@@ -10,9 +10,31 @@ const { Suggestion, CATEGORIES, STATUSES } = require('../models/Suggestion');
 const { Department } = require('../models/Department');
 const { verifyJWT, optionalAuth, requireRole } = require('../middleware/auth');
 const progressController = require('../controllers/ProgressController');
+// const collegeFormController = require('../controllers/collegeForm.controller');
 
 
 const College = require('../models/collegeDataModel');
+
+
+
+const {
+  createCollegeForm,
+  getCollegeForms,
+  getCollegeForm,
+  updateCollegeForm,
+  submitCollegeForm,
+  updateFormStatus,
+  deleteCollegeForm,
+  getCollegeStats,
+  searchColleges,
+  getCollegesByDistrict,
+  getCollegesByProvince,
+  bulkUpdateStatus,
+  getMyCollegeForms
+} = require('../controllers/collegeForm.controller');
+
+
+const { generateSummaryDocx } = require('../controllers/summaryController');
 
 const router = express.Router();
 
@@ -574,7 +596,7 @@ router.get('/api/admin/reports/summary', async (_req, res) => {
 });
 
 module.exports = router;
-
+router.post('/api/progress/generateSummary', generateSummaryDocx);
 
 
 
@@ -2095,6 +2117,69 @@ router.get('/api/progress/analytics', progressController.getAnalytics);
 router.get('/api/progress/export/csv', progressController.exportCSV);
 router.get('/api/progress/college/:collegeId', progressController.getReportsByCollege);
 router.get('/api/progress/:id', progressController.getReportById);
+
+
+// for college form
+
+
+// @desc    Create new college form
+// @route   POST /api/college-forms
+router.post('/api/collegeform', createCollegeForm);
+
+// @desc    Get all college forms with filtering and pagination
+// @route   GET /api/college-forms
+router.get('/api/collegeform', getCollegeForms);
+
+// @desc    Get single college form by ID
+// @route   GET /api/college-forms/:id
+router.get('/api/collegeform/:id', getCollegeForm);
+
+// @desc    Update college form
+// @route   PUT /api/college-forms/:id
+router.put('/api/collegeform/:id', updateCollegeForm);
+
+// @desc    Delete college form
+// @route   DELETE /api/college-forms/:id
+router.delete('/api/collegeform/:id', deleteCollegeForm);
+
+// @desc    Submit college form for review
+// @route   PATCH /api/college-forms/:id/submit
+router.patch('/api/collegeform/:id/submit', submitCollegeForm);
+
+// @desc    Update form status
+// @route   PATCH /api/college-forms/:id/status
+router.patch('/api/collegeform/:id/status', updateFormStatus);
+
+// @desc    Get college statistics and overview
+// @route   GET /api/college-forms/stats/overview
+router.get('/api/collegeform/stats/overview', getCollegeStats);
+
+// @desc    Search colleges by name, district, or principal
+// @route   GET /api/college-forms/search
+router.get('/api/collegeform/search', searchColleges);
+
+// @desc    Get colleges by district
+// @route   GET /api/college-forms/district/:district
+router.get('/api/collegeform/district/:district', getCollegesByDistrict);
+
+// @desc    Get colleges by province
+// @route   GET /api/college-forms/province/:province
+router.get('/api/collegeform/province/:province', getCollegesByProvince);
+
+// @desc    Bulk update form status
+// @route   PATCH /api/college-forms/bulk/status
+router.patch('/api/collegeform/bulk/status', bulkUpdateStatus);
+
+// @desc    Get user's submitted forms
+// @route   GET /api/college-forms/my-forms
+router.get('/api/collegeform/my-forms', getMyCollegeForms);
+
+
+
+
+
+
+
 
 router.post('/api/progress', progressController.createReport);
 

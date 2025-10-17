@@ -27,7 +27,8 @@ const allowedOrigins = [
   'http://localhost:3000',                    // React dev server
   'http://localhost:5173',                    // Vite dev server
   'http://127.0.0.1:3000',                    // Alternative localhost
-  'http://127.0.0.1:5173',                    // Alternative localhost
+  'http://127.0.0.1:5173',   
+   'http://127.0.0.1:4173',                                     // Alternative localhost
 ].filter(Boolean);
 
 // Debug logging (remove in production)

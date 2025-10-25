@@ -4,6 +4,7 @@ const path = require('path');
 /**
  * ProgressReport Model
  * Handles all data operations for college progress reports with program-wise tracking and financial data
+ * Updated to accommodate new program structure with institution, level, and programName
  */
 class ProgressReport {
   constructor() {
@@ -75,14 +76,42 @@ class ProgressReport {
 
   /**
    * Get reports by program name across all colleges
-   * @param {string} programName - Program name (e.g., "BSC", "BBA")
+   * @param {string} programName - Program name (e.g., "M. Ed. in Mathematics Education")
    * @returns {Promise<Array>} Array of reports containing the program
    */
   async getReportsByProgram(programName) {
     const reports = await this.getAllReports();
     return reports.filter(report => 
       report.programs?.some(program => 
-        program.programName.toLowerCase() === programName.toLowerCase()
+        program.programName.toLowerCase().includes(programName.toLowerCase())
+      )
+    );
+  }
+
+  /**
+   * Get reports by institution across all colleges
+   * @param {string} institution - Institution name (e.g., "Open and Distance Education Centre")
+   * @returns {Promise<Array>} Array of reports containing the institution
+   */
+  async getReportsByInstitution(institution) {
+    const reports = await this.getAllReports();
+    return reports.filter(report => 
+      report.programs?.some(program => 
+        program.institution?.toLowerCase().includes(institution.toLowerCase())
+      )
+    );
+  }
+
+  /**
+   * Get reports by education level
+   * @param {string} level - Education level (e.g., "Master", "Bachelor")
+   * @returns {Promise<Array>} Array of reports containing the level
+   */
+  async getReportsByLevel(level) {
+    const reports = await this.getAllReports();
+    return reports.filter(report => 
+      report.programs?.some(program => 
+        program.level?.toLowerCase() === level.toLowerCase()
       )
     );
   }
@@ -95,8 +124,10 @@ class ProgressReport {
   async createReport(reportData) {
     const reports = await this.getAllReports();
     
-    // Validate and process programs
+    // Validate and process programs with new structure
     const processedPrograms = (reportData.programs || []).map(program => ({
+      institution: program.institution || '',
+      level: program.level || '',
       programName: program.programName || '',
       totalStudents: program.totalStudents || 0,
       maleStudents: program.maleStudents || 0,
@@ -107,7 +138,8 @@ class ProgressReport {
       graduatedStudents: program.graduatedStudents || 0,
       passPercentage: program.passPercentage || 0,
       approvalLetterPath: program.approvalLetterPath || null,
-      approvalLetterFilename: program.approvalLetterFilename || null
+      approvalLetterFilename: program.approvalLetterFilename || null,
+      cloudinaryPublicId: program.cloudinaryPublicId || null
     }));
     
     // Calculate total students from all programs
@@ -219,13 +251,15 @@ class ProgressReport {
   }
 
   /**
-   * Update a specific program within a report
+   * Update a specific program within a report using the new composite key
    * @param {string} reportId - Report ID
-   * @param {string} programName - Program name to update
+   * @param {string} institution - Institution name
+   * @param {string} level - Education level
+   * @param {string} programName - Program name
    * @param {Object} programData - Updated program data
    * @returns {Promise<Object>} Updated report
    */
-  async updateProgram(reportId, programName, programData) {
+  async updateProgram(reportId, institution, level, programName, programData) {
     const report = await this.getReportById(reportId);
     
     if (!report) {
@@ -233,7 +267,9 @@ class ProgressReport {
     }
     
     const programIndex = report.programs.findIndex(
-      p => p.programName === programName
+      p => p.institution === institution && 
+           p.level === level && 
+           p.programName === programName
     );
     
     if (programIndex === -1) {
@@ -246,6 +282,79 @@ class ProgressReport {
     };
     
     return await this.updateReport(reportId, { programs: report.programs });
+  }
+
+  /**
+   * Add a new program to an existing report
+   * @param {string} reportId - Report ID
+   * @param {Object} programData - New program data
+   * @returns {Promise<Object>} Updated report
+   */
+  async addProgram(reportId, programData) {
+    const report = await this.getReportById(reportId);
+    
+    if (!report) {
+      throw new Error('Report not found');
+    }
+
+    // Check if program already exists
+    const existingProgram = report.programs.find(
+      p => p.institution === programData.institution && 
+           p.level === programData.level && 
+           p.programName === programData.programName
+    );
+
+    if (existingProgram) {
+      throw new Error('Program already exists in this report');
+    }
+
+    const newProgram = {
+      institution: programData.institution || '',
+      level: programData.level || '',
+      programName: programData.programName || '',
+      totalStudents: programData.totalStudents || 0,
+      maleStudents: programData.maleStudents || 0,
+      femaleStudents: programData.femaleStudents || 0,
+      scholarshipStudents: programData.scholarshipStudents || 0,
+      isScholarshipRuleApplied: programData.isScholarshipRuleApplied || false,
+      newAdmissions: programData.newAdmissions || 0,
+      graduatedStudents: programData.graduatedStudents || 0,
+      passPercentage: programData.passPercentage || 0,
+      approvalLetterPath: programData.approvalLetterPath || null,
+      approvalLetterFilename: programData.approvalLetterFilename || null,
+      cloudinaryPublicId: programData.cloudinaryPublicId || null
+    };
+
+    report.programs.push(newProgram);
+    return await this.updateReport(reportId, { programs: report.programs });
+  }
+
+  /**
+   * Remove a program from a report
+   * @param {string} reportId - Report ID
+   * @param {string} institution - Institution name
+   * @param {string} level - Education level
+   * @param {string} programName - Program name
+   * @returns {Promise<Object>} Updated report
+   */
+  async removeProgram(reportId, institution, level, programName) {
+    const report = await this.getReportById(reportId);
+    
+    if (!report) {
+      throw new Error('Report not found');
+    }
+
+    const filteredPrograms = report.programs.filter(
+      p => !(p.institution === institution && 
+             p.level === level && 
+             p.programName === programName)
+    );
+
+    if (filteredPrograms.length === report.programs.length) {
+      throw new Error('Program not found in report');
+    }
+
+    return await this.updateReport(reportId, { programs: filteredPrograms });
   }
 
   /**
@@ -320,7 +429,7 @@ class ProgressReport {
   }
 
   /**
-   * Get comprehensive analytics across all reports
+   * Get comprehensive analytics across all reports with new program structure
    * @returns {Promise<Object>} Analytics data
    */
   async getAnalytics() {
@@ -349,6 +458,8 @@ class ProgressReport {
         },
         averagePassRate: 0,
         programDistribution: [],
+        institutionDistribution: [],
+        levelDistribution: [],
         collegePerformance: [],
         yearlyTrends: []
       };
@@ -356,6 +467,8 @@ class ProgressReport {
 
     const collegeMap = new Map();
     const programStats = new Map();
+    const institutionStats = new Map();
+    const levelStats = new Map();
     const yearMap = new Map();
     
     let totalMaleStudents = 0;
@@ -431,11 +544,13 @@ class ProgressReport {
         });
       }
 
-      // Program aggregation
+      // Program aggregation with new structure
       report.programs?.forEach(program => {
         const male = program.maleStudents || 0;
         const female = program.femaleStudents || 0;
         const scholarship = program.scholarshipStudents || 0;
+        const institution = program.institution || 'Unknown Institution';
+        const level = program.level || 'Not ';
         
         totalMaleStudents += male;
         totalFemaleStudents += female;
@@ -449,9 +564,12 @@ class ProgressReport {
         yearData.totalFemale += female;
         yearData.totalScholarship += scholarship;
 
-        // Program statistics
-        if (!programStats.has(program.programName)) {
-          programStats.set(program.programName, {
+        // Program statistics with composite key
+        const programKey = `${institution}|${level}|${program.programName}`;
+        if (!programStats.has(programKey)) {
+          programStats.set(programKey, {
+            institution,
+            level,
             programName: program.programName,
             totalStudents: 0,
             maleStudents: 0,
@@ -465,7 +583,7 @@ class ProgressReport {
           });
         }
         
-        const stats = programStats.get(program.programName);
+        const stats = programStats.get(programKey);
         stats.totalStudents += program.totalStudents || 0;
         stats.maleStudents += male;
         stats.femaleStudents += female;
@@ -475,6 +593,38 @@ class ProgressReport {
         stats.totalPassRate += program.passPercentage || 0;
         stats.programCount++;
         stats.colleges.add(report.collegeId);
+
+        // Institution statistics
+        if (!institutionStats.has(institution)) {
+          institutionStats.set(institution, {
+            institutionName: institution,
+            totalStudents: 0,
+            totalPrograms: 0,
+            totalColleges: new Set(),
+            levels: new Set()
+          });
+        }
+        const instStats = institutionStats.get(institution);
+        instStats.totalStudents += program.totalStudents || 0;
+        instStats.totalPrograms++;
+        instStats.totalColleges.add(report.collegeId);
+        instStats.levels.add(level);
+
+        // Level statistics
+        if (!levelStats.has(level)) {
+          levelStats.set(level, {
+            levelName: level,
+            totalStudents: 0,
+            totalPrograms: 0,
+            totalColleges: new Set(),
+            institutions: new Set()
+          });
+        }
+        const lvlStats = levelStats.get(level);
+        lvlStats.totalStudents += program.totalStudents || 0;
+        lvlStats.totalPrograms++;
+        lvlStats.totalColleges.add(report.collegeId);
+        lvlStats.institutions.add(institution);
       });
     });
 
@@ -485,6 +635,8 @@ class ProgressReport {
 
     // Process program distribution
     const programDistribution = Array.from(programStats.values()).map(stats => ({
+      institution: stats.institution,
+      level: stats.level,
       programName: stats.programName,
       totalStudents: stats.totalStudents,
       maleStudents: stats.maleStudents,
@@ -499,6 +651,30 @@ class ProgressReport {
         ? Math.round((stats.totalPassRate / stats.programCount) * 100) / 100 
         : 0,
       collegeCount: stats.colleges.size
+    }));
+
+    // Process institution distribution
+    const institutionDistribution = Array.from(institutionStats.values()).map(stats => ({
+      institutionName: stats.institutionName,
+      totalStudents: stats.totalStudents,
+      totalPrograms: stats.totalPrograms,
+      collegeCount: stats.totalColleges.size,
+      levelCount: stats.levels.size,
+      averageStudentsPerProgram: stats.totalPrograms > 0 
+        ? Math.round(stats.totalStudents / stats.totalPrograms) 
+        : 0
+    }));
+
+    // Process level distribution
+    const levelDistribution = Array.from(levelStats.values()).map(stats => ({
+      levelName: stats.levelName,
+      totalStudents: stats.totalStudents,
+      totalPrograms: stats.totalPrograms,
+      collegeCount: stats.totalColleges.size,
+      institutionCount: stats.institutions.size,
+      averageStudentsPerProgram: stats.totalPrograms > 0 
+        ? Math.round(stats.totalStudents / stats.totalPrograms) 
+        : 0
     }));
 
     // Process college performance
@@ -523,8 +699,10 @@ class ProgressReport {
         }
       }
 
-      // Calculate program-wise statistics for this college
+      // Calculate program-wise statistics for this college with new structure
       const programSummary = latestReport.programs?.map(program => ({
+        institution: program.institution,
+        level: program.level,
         programName: program.programName,
         totalStudents: program.totalStudents,
         maleStudents: program.maleStudents,
@@ -578,13 +756,15 @@ class ProgressReport {
       financialSummary,
       averagePassRate: Math.round(averagePassRate * 100) / 100,
       programDistribution: programDistribution.sort((a, b) => b.totalStudents - a.totalStudents),
+      institutionDistribution: institutionDistribution.sort((a, b) => b.totalStudents - a.totalStudents),
+      levelDistribution: levelDistribution.sort((a, b) => b.totalStudents - a.totalStudents),
       collegePerformance: collegePerformance.sort((a, b) => b.totalStudents - a.totalStudents),
       yearlyTrends
     };
   }
 
   /**
-   * Get summary statistics for a specific college
+   * Get summary statistics for a specific college with new program structure
    * @param {string} collegeId - College ID
    * @returns {Promise<Object>} College summary
    */
@@ -602,6 +782,41 @@ class ProgressReport {
     const totalMale = latestReport.programs?.reduce((sum, p) => sum + (p.maleStudents || 0), 0) || 0;
     const totalFemale = latestReport.programs?.reduce((sum, p) => sum + (p.femaleStudents || 0), 0) || 0;
     const totalScholarship = latestReport.programs?.reduce((sum, p) => sum + (p.scholarshipStudents || 0), 0) || 0;
+
+    // Group programs by institution and level
+    const programsByInstitution = {};
+    const programsByLevel = {};
+    
+    latestReport.programs?.forEach(program => {
+      const institution = program.institution || 'Unknown Institution';
+      const level = program.level || 'Not Specifiedl';
+      
+      // Group by institution
+      if (!programsByInstitution[institution]) {
+        programsByInstitution[institution] = {
+          institution,
+          totalPrograms: 0,
+          totalStudents: 0,
+          levels: new Set()
+        };
+      }
+      programsByInstitution[institution].totalPrograms++;
+      programsByInstitution[institution].totalStudents += program.totalStudents || 0;
+      programsByInstitution[institution].levels.add(level);
+      
+      // Group by level
+      if (!programsByLevel[level]) {
+        programsByLevel[level] = {
+          level,
+          totalPrograms: 0,
+          totalStudents: 0,
+          institutions: new Set()
+        };
+      }
+      programsByLevel[level].totalPrograms++;
+      programsByLevel[level].totalStudents += program.totalStudents || 0;
+      programsByLevel[level].institutions.add(institution);
+    });
 
     // Financial data
     const financialData = latestReport.financialStatus ? {
@@ -629,6 +844,8 @@ class ProgressReport {
       scholarshipStudents: totalScholarship,
       totalPrograms: latestReport.programs?.length || 0,
       programs: latestReport.programs,
+      programsByInstitution: Object.values(programsByInstitution),
+      programsByLevel: Object.values(programsByLevel),
       infrastructure: {
         buildingStatus: latestReport.buildingStatus,
         classroomCount: latestReport.classroomCount,
@@ -734,6 +951,59 @@ class ProgressReport {
       topSpendingColleges,
       categoryAnalysis
     };
+  }
+
+  /**
+   * Search programs across all reports with flexible criteria
+   * @param {Object} criteria - Search criteria
+   * @returns {Promise<Array>} Matching programs
+   */
+  async searchPrograms(criteria = {}) {
+    const reports = await this.getAllReports();
+    const results = [];
+
+    reports.forEach(report => {
+      report.programs?.forEach(program => {
+        let matches = true;
+
+        // Institution filter
+        if (criteria.institution && program.institution) {
+          matches = matches && program.institution.toLowerCase().includes(criteria.institution.toLowerCase());
+        }
+
+        // Level filter
+        if (criteria.level && program.level) {
+          matches = matches && program.level.toLowerCase() === criteria.level.toLowerCase();
+        }
+
+        // Program name filter
+        if (criteria.programName && program.programName) {
+          matches = matches && program.programName.toLowerCase().includes(criteria.programName.toLowerCase());
+        }
+
+        // Minimum students filter
+        if (criteria.minStudents && program.totalStudents) {
+          matches = matches && program.totalStudents >= criteria.minStudents;
+        }
+
+        // Minimum pass percentage filter
+        if (criteria.minPassPercentage && program.passPercentage) {
+          matches = matches && program.passPercentage >= criteria.minPassPercentage;
+        }
+
+        if (matches) {
+          results.push({
+            ...program,
+            collegeId: report.collegeId,
+            collegeName: report.collegeName,
+            academicYear: report.academicYear,
+            reportId: report.id
+          });
+        }
+      });
+    });
+
+    return results;
   }
 }
 

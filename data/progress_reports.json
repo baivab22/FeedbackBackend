@@ -418,50 +418,7 @@
     "createdAt": "2025-10-14T15:16:48.860Z",
     "updatedAt": "2025-10-14T15:16:48.860Z"
   },
-  {
-    "id": "1760456120120",
-    "collegeId": "tudfasf4543543",
-    "collegeName": "dfdasfdsf",
-    "academicYear": "2025-2026",
-    "submissionDate": "2025-10-14",
-    "totalStudents": 1112030,
-    "programs": [
-      {
-        "programName": "dsafdsaf",
-        "totalStudents": 1112030,
-        "maleStudents": 435460,
-        "femaleStudents": 676570,
-        "scholarshipStudents": 4546,
-        "isScholarshipRuleApplied": true,
-        "newAdmissions": 44566,
-        "graduatedStudents": 6546540,
-        "passPercentage": 54,
-        "approvalLetterFilename": "headphone-jack-phone-techpana-news_UuRFZDnRZW.jpg",
-        "approvalLetterPath": null,
-        "approvalLetterBlob": "blob:http://localhost:5173/9dc24b8a-5323-4515-bef4-06133a6e20d2",
-        "approvalLetterMimeType": "image/jpeg"
-      }
-    ],
-    "approvedBudget": 43,
-    "actualExpenditure": 43,
-    "revenueGenerated": 45,
-    "buildingStatus": "In Progress",
-    "classroomCount": 430,
-    "labCount": 54,
-    "libraryBooks": 65,
-    "itConnectivity": "Good",
-    "academicProgress": "dfdsfdsa fdsfds",
-    "researchProgress": "fdsfadsfdsaf",
-    "adminProgress": "dsfdsafdsf",
-    "qualityProgress": "dsfdsafdsf",
-    "majorChallenges": "dafsdsafdasf",
-    "nextYearPlan": "fdsafdsafdasfdsf",
-    "headName": "dsafdsfadsf",
-    "principalName": "fdsafdsafds",
-    "submittedBy": "dsfdsfdsfdsfa",
-    "createdAt": "2025-10-14T15:35:20.121Z",
-    "updatedAt": "2025-10-14T15:35:20.121Z"
-  },
+
   {
     "id": "1760456434971",
     "collegeId": "TU-458345",
@@ -548,91 +505,8 @@
     "createdAt": "2025-10-14T15:42:56.108Z",
     "updatedAt": "2025-10-14T15:42:56.108Z"
   },
-  {
-    "id": "1760457185774",
-    "collegeId": "dfdsaf",
-    "collegeName": "dfdsaf",
-    "academicYear": "2025-2026",
-    "submissionDate": "2025-10-13",
-    "totalStudents": 99,
-    "programs": [
-      {
-        "programName": "dsfdsafdsaf",
-        "totalStudents": 99,
-        "maleStudents": 43,
-        "femaleStudents": 56,
-        "scholarshipStudents": 5,
-        "isScholarshipRuleApplied": true,
-        "newAdmissions": 3,
-        "graduatedStudents": 4,
-        "passPercentage": 4,
-        "approvalLetterPath": null,
-        "approvalLetterFilename": null
-      }
-    ],
-    "approvedBudget": 430,
-    "actualExpenditure": 40,
-    "revenueGenerated": 54,
-    "buildingStatus": "Planned",
-    "classroomCount": 43,
-    "labCount": 54,
-    "libraryBooks": 6,
-    "itConnectivity": "Average",
-    "academicProgress": "dsfdsaf",
-    "researchProgress": "dsfadsf",
-    "adminProgress": "dsfdasf",
-    "qualityProgress": "dsafdsaf",
-    "majorChallenges": "dsfadsf",
-    "nextYearPlan": "dsfadsaf",
-    "headName": "dsfadsf",
-    "principalName": "sdfdsafd",
-    "submittedBy": "dsafdsafdsf",
-    "createdAt": "2025-10-14T15:53:05.774Z",
-    "updatedAt": "2025-10-14T15:53:05.774Z"
-  },
-  {
-    "id": "1760519313168",
-    "collegeId": "rtrtertretfgfdg",
-    "collegeName": "dfsf",
-    "academicYear": "2025-2026",
-    "submissionDate": "2025-10-14",
-    "totalStudents": 65097,
-    "programs": [
-      {
-        "programName": "dsafdsa",
-        "totalStudents": 65097,
-        "maleStudents": 43,
-        "femaleStudents": 65054,
-        "scholarshipStudents": 450,
-        "isScholarshipRuleApplied": true,
-        "newAdmissions": 450,
-        "graduatedStudents": 5570,
-        "passPercentage": 43,
-        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1760519253/tu-progress-reports/default/2025-2026/dsafdsa_1760519250792.jpg",
-        "approvalLetterFilename": "lao.jpg",
-        "cloudinaryPublicId": "tu-progress-reports/default/2025-2026/dsafdsa_1760519250792"
-      }
-    ],
-    "approvedBudget": 43,
-    "actualExpenditure": 54,
-    "revenueGenerated": 34,
-    "buildingStatus": "Planned",
-    "classroomCount": 43,
-    "labCount": 45,
-    "libraryBooks": 56,
-    "itConnectivity": "Good",
-    "academicProgress": "sdafdasf",
-    "researchProgress": "dsfdsaf",
-    "adminProgress": "dfadsf",
-    "qualityProgress": "dsfdsaf",
-    "majorChallenges": "dsafdsf",
-    "nextYearPlan": "dsafdsf",
-    "headName": "dsfdsaf",
-    "principalName": "dsfadsfa",
-    "submittedBy": "fdsfdsf",
-    "createdAt": "2025-10-15T09:08:33.168Z",
-    "updatedAt": "2025-10-15T09:08:33.168Z"
-  },
+
+
   {
     "id": "1760523395281",
     "collegeId": "TU_NEPALCOLLEGE",
@@ -1226,5 +1100,581 @@
     },
     "createdAt": "2025-10-16T05:34:41.786Z",
     "updatedAt": "2025-10-16T05:34:41.786Z"
+  },
+  {
+    "id": "1761321591787",
+    "collegeId": "Modi occaecati animi ab quidem inventore distinctio suscipit quibusdam aspernatur.",
+    "collegeName": "Angie Schmitt",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-01-14",
+    "totalStudents": 983,
+    "programs": [
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "Master",
+        "programName": "M.Sc. Natural Resources Management and Rural Development",
+        "totalStudents": 983,
+        "maleStudents": 491,
+        "femaleStudents": 492,
+        "scholarshipStudents": 54,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 531,
+        "graduatedStudents": 317,
+        "passPercentage": 85,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761321518/tu-progress-reports/Modi%20occaecati%20animi%20ab%20quidem%20inventore%20distinctio%20suscipit%20quibusdam%20aspernatur./2025-2026/M.Sc._Natural_Resources_Management_and_Rural_Development_1761321517120.jpg",
+        "approvalLetterFilename": "Lenovo-Legion-Pro-5-2025-Design.jpg",
+        "cloudinaryPublicId": "tu-progress-reports/Modi occaecati animi ab quidem inventore distinctio suscipit quibusdam aspernatur./2025-2026/M.Sc._Natural_Resources_Management_and_Rural_Development_1761321517120"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Complete",
+    "classroomCount": 482,
+    "labCount": 23,
+    "libraryBooks": 251,
+    "itConnectivity": "Excellent",
+    "academicProgress": "20705 Gerry Manor",
+    "researchProgress": "45234 Bennett Glen",
+    "adminProgress": "919 Eric Rue",
+    "qualityProgress": "Doloribus dolor distinctio magni eligendi sit reprehenderit.",
+    "majorChallenges": "Atque neque quia exercitationem asperiores error.",
+    "nextYearPlan": "Maxime eaque libero iure cumque fuga.",
+    "headName": "Hipolito Wilderman",
+    "principalName": "Octavia Veum",
+    "submittedBy": "Assumenda commodi ratione neque repellendus magnam cupiditate veniam iure.",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 565,
+        "actualExpenditure": 234,
+        "revenueGenerated": 298,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 607,
+        "actualExpenditure": 290,
+        "revenueGenerated": 662,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 126,
+        "actualExpenditure": 298,
+        "revenueGenerated": 261,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 292,
+        "actualExpenditure": 645,
+        "revenueGenerated": 604,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761321534/tu-progress-reports/Modi%20occaecati%20animi%20ab%20quidem%20inventore%20distinctio%20suscipit%20quibusdam%20aspernatur./2025-2026/financial/auditedFinancialStatements_Modi%20occaecati%20animi%20ab%20quidem%20inventore%20distinctio%20suscipit%20quibusdam%20aspernatur._1761321530866.png",
+        "auditedFinancialStatementsFilename": "Gemini_Generated_Image_m8krtdm8krtdm8kr.png",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761321536/tu-progress-reports/Modi%20occaecati%20animi%20ab%20quidem%20inventore%20distinctio%20suscipit%20quibusdam%20aspernatur./2025-2026/financial/budgetCopy_Modi%20occaecati%20animi%20ab%20quidem%20inventore%20distinctio%20suscipit%20quibusdam%20aspernatur._1761321534407.png",
+        "budgetCopyFilename": "Gemini_Generated_Image_o54d0o54d0o54d0o.png"
+      },
+      "totalAnnualBudget": 1590,
+      "totalActualExpenditure": 1467,
+      "totalRevenueGenerated": 1825
+    },
+    "createdAt": "2025-10-24T15:59:51.787Z",
+    "updatedAt": "2025-10-24T15:59:51.787Z"
+  },
+  {
+    "id": "1761323116059",
+    "collegeId": "Ipsa fuga assumenda repudiandae in soluta.",
+    "collegeName": "Gussie Smith",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-10-13",
+    "totalStudents": 1245,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Master",
+        "programName": "M.Sc. Environmental Science",
+        "totalStudents": 468,
+        "maleStudents": 16,
+        "femaleStudents": 452,
+        "scholarshipStudents": 224,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 300,
+        "graduatedStudents": 426,
+        "passPercentage": 24,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      },
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "PhD",
+        "programName": "PhD in Watershed Management",
+        "totalStudents": 777,
+        "maleStudents": 229,
+        "femaleStudents": 548,
+        "scholarshipStudents": 37,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 19,
+        "graduatedStudents": 449,
+        "passPercentage": 1,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Under Maintenance",
+    "classroomCount": 598,
+    "labCount": 639,
+    "libraryBooks": 663,
+    "itConnectivity": "Good",
+    "academicProgress": "26764 Kuvalis Common",
+    "researchProgress": "1994 Marion Landing",
+    "adminProgress": "937 Walsh Corners",
+    "qualityProgress": "Error laborum odio nulla dolor provident esse mollitia eos.",
+    "majorChallenges": "Iste illum culpa sed rerum.",
+    "nextYearPlan": "Odio impedit commodi dignissimos sunt laudantium error recusandae reprehenderit iste.",
+    "headName": "Lavinia Turcotte",
+    "principalName": "Trent Lehner",
+    "submittedBy": "Quia eum unde.",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 269,
+        "actualExpenditure": 54,
+        "revenueGenerated": 355,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 172,
+        "actualExpenditure": 650,
+        "revenueGenerated": 265,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 80,
+        "actualExpenditure": 324,
+        "revenueGenerated": 451,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 109,
+        "actualExpenditure": 533,
+        "revenueGenerated": 383,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": null,
+        "auditedFinancialStatementsFilename": null,
+        "budgetCopy": null,
+        "budgetCopyFilename": null
+      },
+      "totalAnnualBudget": 630,
+      "totalActualExpenditure": 1561,
+      "totalRevenueGenerated": 1454
+    },
+    "createdAt": "2025-10-24T16:25:16.060Z",
+    "updatedAt": "2025-10-24T16:25:16.060Z"
+  },
+  {
+    "id": "1761323144761",
+    "collegeId": "Ipsa fuga assumenda repudiandae in soluta.",
+    "collegeName": "Gussie Smith",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-10-13",
+    "totalStudents": 1245,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Master",
+        "programName": "M.Sc. Environmental Science",
+        "totalStudents": 468,
+        "maleStudents": 16,
+        "femaleStudents": 452,
+        "scholarshipStudents": 224,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 300,
+        "graduatedStudents": 426,
+        "passPercentage": 24,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      },
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "PhD",
+        "programName": "PhD in Watershed Management",
+        "totalStudents": 777,
+        "maleStudents": 229,
+        "femaleStudents": 548,
+        "scholarshipStudents": 37,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 19,
+        "graduatedStudents": 449,
+        "passPercentage": 1,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Under Maintenance",
+    "classroomCount": 598,
+    "labCount": 639,
+    "libraryBooks": 663,
+    "itConnectivity": "Good",
+    "academicProgress": "26764 Kuvalis Common",
+    "researchProgress": "1994 Marion Landing",
+    "adminProgress": "937 Walsh Corners",
+    "qualityProgress": "Error laborum odio nulla dolor provident esse mollitia eos.",
+    "majorChallenges": "Iste illum culpa sed rerum.",
+    "nextYearPlan": "Odio impedit commodi dignissimos sunt laudantium error recusandae reprehenderit iste.",
+    "headName": "Lavinia Turcotte",
+    "principalName": "Trent Lehner",
+    "submittedBy": "Quia eum unde.",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 269,
+        "actualExpenditure": 54,
+        "revenueGenerated": 355,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 172,
+        "actualExpenditure": 650,
+        "revenueGenerated": 265,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 80,
+        "actualExpenditure": 324,
+        "revenueGenerated": 451,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 109,
+        "actualExpenditure": 533,
+        "revenueGenerated": 383,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": null,
+        "auditedFinancialStatementsFilename": null,
+        "budgetCopy": null,
+        "budgetCopyFilename": null
+      },
+      "totalAnnualBudget": 630,
+      "totalActualExpenditure": 1561,
+      "totalRevenueGenerated": 1454
+    },
+    "createdAt": "2025-10-24T16:25:44.761Z",
+    "updatedAt": "2025-10-24T16:25:44.761Z"
+  },
+  {
+    "id": "1761323171315",
+    "collegeId": "Ipsa fuga assumenda repudiandae in soluta.",
+    "collegeName": "Gussie Smith",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-10-13",
+    "totalStudents": 1245,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Master",
+        "programName": "M.Sc. Environmental Science",
+        "totalStudents": 468,
+        "maleStudents": 16,
+        "femaleStudents": 452,
+        "scholarshipStudents": 224,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 300,
+        "graduatedStudents": 426,
+        "passPercentage": 24,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      },
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "PhD",
+        "programName": "PhD in Watershed Management",
+        "totalStudents": 777,
+        "maleStudents": 229,
+        "femaleStudents": 548,
+        "scholarshipStudents": 37,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 19,
+        "graduatedStudents": 449,
+        "passPercentage": 1,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Under Maintenance",
+    "classroomCount": 598,
+    "labCount": 639,
+    "libraryBooks": 663,
+    "itConnectivity": "Good",
+    "academicProgress": "26764 Kuvalis Common",
+    "researchProgress": "1994 Marion Landing",
+    "adminProgress": "937 Walsh Corners",
+    "qualityProgress": "Error laborum odio nulla dolor provident esse mollitia eos.",
+    "majorChallenges": "Iste illum culpa sed rerum.",
+    "nextYearPlan": "Odio impedit commodi dignissimos sunt laudantium error recusandae reprehenderit iste.",
+    "headName": "Lavinia Turcotte",
+    "principalName": "Trent Lehner",
+    "submittedBy": "Quia eum unde.",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 269,
+        "actualExpenditure": 54,
+        "revenueGenerated": 355,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 172,
+        "actualExpenditure": 650,
+        "revenueGenerated": 265,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 80,
+        "actualExpenditure": 324,
+        "revenueGenerated": 451,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 109,
+        "actualExpenditure": 533,
+        "revenueGenerated": 383,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": null,
+        "auditedFinancialStatementsFilename": null,
+        "budgetCopy": null,
+        "budgetCopyFilename": null
+      },
+      "totalAnnualBudget": 630,
+      "totalActualExpenditure": 1561,
+      "totalRevenueGenerated": 1454
+    },
+    "createdAt": "2025-10-24T16:26:11.315Z",
+    "updatedAt": "2025-10-24T16:26:11.315Z"
+  },
+  {
+    "id": "1761323180612",
+    "collegeId": "Ipsa fuga assumenda repudiandae in soluta.",
+    "collegeName": "Gussie Smith",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-10-13",
+    "totalStudents": 1245,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Master",
+        "programName": "M.Sc. Environmental Science",
+        "totalStudents": 468,
+        "maleStudents": 16,
+        "femaleStudents": 452,
+        "scholarshipStudents": 224,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 300,
+        "graduatedStudents": 426,
+        "passPercentage": 24,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      },
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "PhD",
+        "programName": "PhD in Watershed Management",
+        "totalStudents": 777,
+        "maleStudents": 229,
+        "femaleStudents": 548,
+        "scholarshipStudents": 37,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 19,
+        "graduatedStudents": 449,
+        "passPercentage": 1,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Under Maintenance",
+    "classroomCount": 598,
+    "labCount": 639,
+    "libraryBooks": 663,
+    "itConnectivity": "Good",
+    "academicProgress": "26764 Kuvalis Common",
+    "researchProgress": "1994 Marion Landing",
+    "adminProgress": "937 Walsh Corners",
+    "qualityProgress": "Error laborum odio nulla dolor provident esse mollitia eos.",
+    "majorChallenges": "Iste illum culpa sed rerum.",
+    "nextYearPlan": "Odio impedit commodi dignissimos sunt laudantium error recusandae reprehenderit iste.",
+    "headName": "Lavinia Turcotte",
+    "principalName": "Trent Lehner",
+    "submittedBy": "Quia eum unde.",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 269,
+        "actualExpenditure": 54,
+        "revenueGenerated": 355,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 172,
+        "actualExpenditure": 650,
+        "revenueGenerated": 265,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 80,
+        "actualExpenditure": 324,
+        "revenueGenerated": 451,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 109,
+        "actualExpenditure": 533,
+        "revenueGenerated": 383,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": null,
+        "auditedFinancialStatementsFilename": null,
+        "budgetCopy": null,
+        "budgetCopyFilename": null
+      },
+      "totalAnnualBudget": 630,
+      "totalActualExpenditure": 1561,
+      "totalRevenueGenerated": 1454
+    },
+    "createdAt": "2025-10-24T16:26:20.612Z",
+    "updatedAt": "2025-10-24T16:26:20.612Z"
+  },
+  {
+    "id": "1761375399115",
+    "collegeId": "TU-greenfield",
+    "collegeName": "Greenfield National College",
+    "academicYear": "2025-2026",
+    "submissionDate": "2025-10-07",
+    "totalStudents": 179,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Bachelor",
+        "programName": "Bachelor of Information Management (BIM) - Semester System",
+        "totalStudents": 66,
+        "maleStudents": 23,
+        "femaleStudents": 43,
+        "scholarshipStudents": 5,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 34,
+        "graduatedStudents": 20,
+        "passPercentage": 57,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761374901/tu-progress-reports/TU-greenfield/2025-2026/Bachelor_of_Information_Management_%28BIM%29_-_Semester_System_1761374898928.png",
+        "approvalLetterFilename": "Screenshot 2025-10-16 at 09.01.29.png",
+        "cloudinaryPublicId": "tu-progress-reports/TU-greenfield/2025-2026/Bachelor_of_Information_Management_(BIM)_-_Semester_System_1761374898928"
+      },
+      {
+        "institution": "Institute of Science and Technology (IoST)",
+        "level": "Bachelor",
+        "programName": "B.Sc. (CSIT) - Semester System",
+        "totalStudents": 35,
+        "maleStudents": 20,
+        "femaleStudents": 15,
+        "scholarshipStudents": 7,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 10,
+        "graduatedStudents": 28,
+        "passPercentage": 87,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761374969/tu-progress-reports/TU-greenfield/2025-2026/B.Sc._%28CSIT%29_-_Semester_System_1761374965863.png",
+        "approvalLetterFilename": "Screenshot 2025-10-16 at 23.24.48.png",
+        "cloudinaryPublicId": "tu-progress-reports/TU-greenfield/2025-2026/B.Sc._(CSIT)_-_Semester_System_1761374965863"
+      },
+      {
+        "institution": "Faculty of Humanities and Social Sciences (FoHSS)",
+        "level": "Master",
+        "programName": "Sociology",
+        "totalStudents": 78,
+        "maleStudents": 45,
+        "femaleStudents": 33,
+        "scholarshipStudents": 0,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 29,
+        "graduatedStudents": 23,
+        "passPercentage": 80,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761375067/tu-progress-reports/TU-greenfield/2025-2026/Sociology_1761375065577.png",
+        "approvalLetterFilename": "Screenshot 2025-10-16 at 08.59.36.png",
+        "cloudinaryPublicId": "tu-progress-reports/TU-greenfield/2025-2026/Sociology_1761375065577"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 34,
+    "labCount": 6,
+    "libraryBooks": 453,
+    "itConnectivity": "Good",
+    "academicProgress": "During the reporting period, several academic and curricular milestones were achieved. New academic programs were introduced in response to emerging market demands and student interests. Curriculum revisions were undertaken to align with the latest national standards and technological advancements, emphasizing practical learning and digital literacy. Faculty training sessions and workshops were conducted to strengthen pedagogical practices. Notably, student performance improved in key subjects due to enhanced teaching methods and continuous assessment mechanisms.",
+    "researchProgress": "Research and innovation activities continued to expand, with faculty and students actively engaging in interdisciplinary research projects. Several papers were published in reputed national and international journals, and research collaborations were established with academic and industry partners. The institution successfully organized a research conference and innovation exhibition showcasing student-led prototypes and technological solutions. Proposals for funded research projects were also submitted, reflecting a growing research culture on campus.",
+    "adminProgress": "Administrative efficiency improved through the adoption of digital systems for record management, communication, and resource allocation. Policies related to procurement, finance, and academic operations were reviewed and updated to ensure transparency and accountability. Various committees—such as the Academic Council, Research Committee, and Quality Assurance Cell—were restructured for better governance and coordination. Regular staff meetings and performance reviews strengthened institutional decision-making processes.",
+    "qualityProgress": "Continuous quality improvement remained a key focus. The Quality Assurance and Accreditation Committee (QAAC) implemented several initiatives, including internal audits, peer reviews, and structured student feedback systems. Faculty development programs and orientation sessions were conducted to uphold academic standards. Infrastructure upgrades, improved learning resources, and technology integration contributed to enhancing the overall teaching-learning environment.",
+    "majorChallenges": "Despite progress, several challenges were encountered. Budget limitations delayed certain infrastructure and research initiatives. Recruiting and retaining qualified faculty in specialized areas remained a concern. Limited access to advanced laboratory equipment and research facilities affected some departments. Additionally, maintaining a balance between academic quality and increasing enrollment posed logistical and resource challenges.",
+    "nextYearPlan": "Introduce new interdisciplinary academic programs aligned with national and global needs.\n\nStrengthen research capacity through funded projects, industry partnerships, and innovation labs.\n\nEnhance digital infrastructure for e-learning, administrative automation, and data management.\n\nExpand faculty development programs focusing on emerging technologies and pedagogical innovation.\n\nAccelerate accreditation and quality assurance activities under QAAC guidelines.\n\nAddress infrastructure gaps through phased construction and maintenance projects.\n\nIncrease student engagement through extracurricular, entrepreneurial, and community outreach initiatives.",
+    "headName": "Professor Dr Bikash TImalshina",
+    "principalName": "Prof Hem raj shrestha",
+    "submittedBy": "Hari manandhar",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 9700000,
+        "actualExpenditure": 5960000,
+        "revenueGenerated": 6630000,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 51900000,
+        "actualExpenditure": 19400000,
+        "revenueGenerated": 22000000,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 13500000,
+        "actualExpenditure": 38600000,
+        "revenueGenerated": 8200000,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 510000,
+        "actualExpenditure": 3640000,
+        "revenueGenerated": 3170000,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761375238/tu-progress-reports/TU-greenfield/2025-2026/financial/auditedFinancialStatements_TU-greenfield_1761375236244.png",
+        "auditedFinancialStatementsFilename": "Screenshot 2025-10-16 at 09.01.29.png",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1761375252/tu-progress-reports/TU-greenfield/2025-2026/financial/budgetCopy_TU-greenfield_1761375250046.png",
+        "budgetCopyFilename": "Screenshot 2025-10-16 at 09.01.29.png"
+      },
+      "totalAnnualBudget": 75610000,
+      "totalActualExpenditure": 67600000,
+      "totalRevenueGenerated": 40000000
+    },
+    "createdAt": "2025-10-25T06:56:39.115Z",
+    "updatedAt": "2025-10-25T06:56:39.115Z"
   }
 ]

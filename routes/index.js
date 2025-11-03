@@ -10,6 +10,7 @@ const { Suggestion, CATEGORIES, STATUSES } = require('../models/Suggestion');
 const { Department } = require('../models/Department');
 const { verifyJWT, optionalAuth, requireRole } = require('../middleware/auth');
 const progressController = require('../controllers/ProgressController');
+const FacultyFormController = require('../controllers/facultyForm.controller');
 // const collegeFormController = require('../controllers/collegeForm.controller');
 
 
@@ -34,7 +35,19 @@ const {
 } = require('../controllers/collegeForm.controller');
 
 
+const {
+  createFacultyForm,
+  getFacultyForms,
+  getFacultyFormById,
+  updateFacultyForm,
+  deleteFacultyForm,
+  getFacultyAnalytics,
+  approveFacultyForm
+} = require('../controllers/facultyForm.controller');
+
+
 const { generateSummaryDocx } = require('../controllers/summaryController');
+const FacultyForm = require('../models/facultyForm.model');
 
 const router = express.Router();
 
@@ -2185,6 +2198,16 @@ router.post('/api/progress', progressController.createReport);
 
 // PUT routes
 router.put('/api/progress/:id', progressController.updateReport);
+
+
+
+router.post('/api/faculty-forms', FacultyFormController.createFacultyForm);
+router.get('/api/faculty-forms', FacultyFormController.getFacultyForms);
+
+// @route   GET /api/faculty-forms
+// @desc    Get all faculty forms with filtering, pagination, and search
+// @access  Public
+// router.get('/', getFacultyForms);
 
 // DELETE routesi
 router.delete('/api/progress/:id', progressController.deleteReport);

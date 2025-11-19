@@ -55,10 +55,8 @@ const collegeFormSchema = new mongoose.Schema({
     wardNo: { type: Number, required: true },
     streetTole: String,
     landmark: String,
-    coordinates: {
-      latitude: Number,
-      longitude: Number
-    },
+    latitude: String,
+    longitude: String,
     googleMapsLink: String
   },
 
@@ -119,7 +117,7 @@ const collegeFormSchema = new mongoose.Schema({
       suggestions: String
     },
 
-   // D. Buildings and Rooms
+    // D. Buildings and Rooms
     buildings: [{
       buildingName: String,
       totalRooms: Number,
@@ -158,7 +156,64 @@ const collegeFormSchema = new mongoose.Schema({
       }
     }],
 
-    // E. Health, Hygiene & Sanitation
+    // E. Future Land Use Plan (NEW)
+    futureLandUsePlan: {
+      prepared: Boolean,
+      dismantled: Boolean,
+      proposalDocumentsSubmitted: Boolean,
+      constructionStatus: {
+        type: String,
+        // enum: ['Not Started', 'In Progress', 'Completed', 'On Hold']
+      },
+      structureType: String,
+      structureStatus: String,
+      retrofittingPlan: String,
+      fundSource: String,
+      fundAmount: Number,
+      fundUtilizedPercentage: Number,
+      fundUtilizationIssues: String,
+      documentsSubmittedTo: String,
+      purposeOfBuilding: String
+    },
+
+    // F. Water & Sanitation (NEW)
+    waterSanitation: {
+      waterDrainageSystem: {
+        available: Boolean,
+        status: {
+          type: String,
+          // enum: ['Functional', 'Non-Functional', 'Partially Functional']
+        }
+      },
+      sewerageSystem: {
+        available: Boolean,
+        status: {
+          type: String,
+          // enum: ['Functional', 'Non-Functional', 'Partially Functional']
+        }
+      },
+      waterSeepage: {
+        status: {
+          type: String
+     
+        }
+      },
+      drinkingWater: {
+        available: Boolean,
+        status: {
+          type: String,
+          // enum: ['Functional', 'Non-Functional', 'Partially Functional']
+        }
+      },
+      toiletFacilities: {
+        available: Boolean,
+        maleToilets: Number,
+        femaleToilets: Number,
+        disabledFriendlyToilets: Number
+      }
+    },
+
+    // G. Health, Hygiene & Sanitation
     healthSanitation: {
       toilets: {
         male: Number,
@@ -187,12 +242,20 @@ const collegeFormSchema = new mongoose.Schema({
   academicPrograms: {
     totalFaculties: Number,
     programs: [{
-      programName: String,
+      institution: String,
       level: {
         type: String,
         enum: ['Certificate', 'Diploma', 'Bachelor', 'Master', 'PhD']
       },
-      duration: String,
+      programName: String,
+      totalStudents: Number,
+      maleStudents: Number,
+      femaleStudents: Number,
+      otherStudents: Number,
+      scholarshipStudents: Number,
+      newAdmissions: Number,
+      graduatedStudents: Number,
+      passPercentage: Number,
       affiliatedTo: String
     }],
     enrollment: {
@@ -224,7 +287,7 @@ const collegeFormSchema = new mongoose.Schema({
       startDate: Date,
       expectedCompletion: Date,
       budget: Number,
-      attachments:String,
+      attachments: String,
       status: {
         type: String,
         enum: ['Planning', 'In Progress', 'Completed', 'On Hold']

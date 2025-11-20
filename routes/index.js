@@ -15,6 +15,9 @@ const FacultyFormController = require('../controllers/facultyForm.controller');
 
 
 const College = require('../models/collegeDataModel');
+// const Donater = require('../models/doner.model');
+
+const Donater=require('../controllers/doner.controller');
 
 
 
@@ -48,6 +51,7 @@ const {
 
 const { generateSummaryDocx } = require('../controllers/summaryController');
 const FacultyForm = require('../models/facultyForm.model');
+
 
 const router = express.Router();
 
@@ -2203,6 +2207,18 @@ router.put('/api/progress/:id', progressController.updateReport);
 
 router.post('/api/faculty-forms', FacultyFormController.createFacultyForm);
 router.get('/api/faculty-forms', FacultyFormController.getFacultyForms);
+
+
+
+
+router.post('/api/donater', Donater.createDonater);
+router.get('/api/donater', Donater.getAllDonaters);
+router.get('/api/donater/stats/summary', Donater.getDonaterStats);
+router.get('/api/donater/prize-type/:prizeType', Donater.getDonatersByPrizeType);
+router.get('/api/donater/department/:department', Donater.getDonatersByDepartment);
+router.get('/api/donater/:id', Donater.getDonaterById);
+router.put('/api/donater/:id', Donater.updateDonater);
+router.delete('/api/donater/:id', Donater.deleteDonater);
 
 // @route   GET /api/faculty-forms
 // @desc    Get all faculty forms with filtering, pagination, and search

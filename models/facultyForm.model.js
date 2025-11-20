@@ -47,7 +47,19 @@ const studentEnrollmentSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+
+    constituentExamAppearedForeign: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   constituentExamAppearedT: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+    constituentExamAppearedForeign: {
     type: Number,
     default: 0,
     min: 0
@@ -63,6 +75,15 @@ const studentEnrollmentSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+
+    constituentExamPassedForeign: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+
+
   constituentExamPassedT: {
     type: Number,
     default: 0,
@@ -79,6 +100,12 @@ const studentEnrollmentSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+
+    affiliatedExamAppearedForeign: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   affiliatedExamAppearedT: {
     type: Number,
     default: 0,
@@ -91,6 +118,12 @@ const studentEnrollmentSchema = new mongoose.Schema({
     min: 0
   },
   affiliatedExamPassedF: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+    affiliatedExamPassedForeign: {
     type: Number,
     default: 0,
     min: 0
@@ -124,6 +157,12 @@ const graduateSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+
+    constituentExamAppearedForeign: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   constituentExamAppearedT: {
     type: Number,
     default: 0,
@@ -136,6 +175,12 @@ const graduateSchema = new mongoose.Schema({
     min: 0
   },
   constituentExamPassedF: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+    constituentExamPassedForeign: {
     type: Number,
     default: 0,
     min: 0
@@ -156,6 +201,12 @@ const graduateSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
+
+    affiliatedExamAppearedForeign: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
   affiliatedExamAppearedT: {
     type: Number,
     default: 0,
@@ -168,6 +219,12 @@ const graduateSchema = new mongoose.Schema({
     min: 0
   },
   affiliatedExamPassedF: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+
+    affiliatedExamPassedForeign: {
     type: Number,
     default: 0,
     min: 0
@@ -542,18 +599,18 @@ facultyFormSchema.virtual('passRate').get(function() {
 facultyFormSchema.pre('save', function(next) {
   // Calculate totals for student enrollment
   this.studentEnrollment.forEach(enrollment => {
-    enrollment.constituentExamAppearedT = (enrollment.constituentExamAppearedM || 0) + (enrollment.constituentExamAppearedF || 0);
-    enrollment.constituentExamPassedT = (enrollment.constituentExamPassedM || 0) + (enrollment.constituentExamPassedF || 0);
-    enrollment.affiliatedExamAppearedT = (enrollment.affiliatedExamAppearedM || 0) + (enrollment.affiliatedExamAppearedF || 0);
-    enrollment.affiliatedExamPassedT = (enrollment.affiliatedExamPassedM || 0) + (enrollment.affiliatedExamPassedF || 0);
+    enrollment.constituentExamAppearedT = (enrollment.constituentExamAppearedM || 0) + (enrollment.constituentExamAppearedF || 0) + (enrollment.constituentExamAppearedForeign || 0);
+    enrollment.constituentExamPassedT = (enrollment.constituentExamPassedM || 0) + (enrollment.constituentExamPassedF || 0) + (enrollment.constituentExamPassedForeign || 0);
+    enrollment.affiliatedExamAppearedT = (enrollment.affiliatedExamAppearedM || 0) + (enrollment.affiliatedExamAppearedF || 0)+ (enrollment.affiliatedExamAppearedForeign || 0);
+    enrollment.affiliatedExamPassedT = (enrollment.affiliatedExamPassedM || 0) + (enrollment.affiliatedExamPassedF || 0) + (enrollment.affiliatedExamPassedForeign || 0);
   });
   
   // Calculate totals for graduates
   this.graduates.forEach(graduate => {
-    graduate.constituentExamAppearedT = (graduate.constituentExamAppearedM || 0) + (graduate.constituentExamAppearedF || 0);
-    graduate.constituentExamPassedT = (graduate.constituentExamPassedM || 0) + (graduate.constituentExamPassedF || 0);
-    graduate.affiliatedExamAppearedT = (graduate.affiliatedExamAppearedM || 0) + (graduate.affiliatedExamAppearedF || 0);
-    graduate.affiliatedExamPassedT = (graduate.affiliatedExamPassedM || 0) + (graduate.affiliatedExamPassedF || 0);
+    graduate.constituentExamAppearedT = (graduate.constituentExamAppearedM || 0) + (graduate.constituentExamAppearedF || 0) +  (graduate.constituentExamAppearedForeign || 0);
+    graduate.constituentExamPassedT = (graduate.constituentExamPassedM || 0) + (graduate.constituentExamPassedF || 0) +(graduate.constituentExamPassedForeign || 0) ;
+    graduate.affiliatedExamAppearedT = (graduate.affiliatedExamAppearedM || 0) + (graduate.affiliatedExamAppearedF || 0) + (graduate.affiliatedExamAppearedForeign || 0);
+    graduate.affiliatedExamPassedT = (graduate.affiliatedExamPassedM || 0) + (graduate.affiliatedExamPassedF || 0) + (graduate.affiliatedExamPassedForeign || 0);
   });
   
   next();

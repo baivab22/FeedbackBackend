@@ -19,8 +19,8 @@ const donaterSchema = new mongoose.Schema({
   prizeType: {
     type: String,
     required: [true, 'Prize type is required'],
-    enum: ['Trophy', 'Medal', 'Certificate', 'Cash', 'Scholarship', 'Other'],
-    default: 'Other'
+    // enum: ['Trophy', 'Medal', 'Certificate', 'Cash', 'Scholarship', 'Other'],
+    // default: 'Other'
   },
   relatedDepart: {
     type: String,

@@ -2211,14 +2211,17 @@ router.get('/api/faculty-forms', FacultyFormController.getFacultyForms);
 
 
 
-router.post('/api/donater', Donater.createDonater);
-router.get('/api/donater', Donater.getAllDonaters);
-router.get('/api/donater/stats/summary', Donater.getDonaterStats);
-router.get('/api/donater/prize-type/:prizeType', Donater.getDonatersByPrizeType);
-router.get('/api/donater/department/:department', Donater.getDonatersByDepartment);
-router.get('/api/donater/:id', Donater.getDonaterById);
-router.put('/api/donater/:id', Donater.updateDonater);
-router.delete('/api/donater/:id', Donater.deleteDonater);
+router.post('/api/donater', Donater.createDonor);
+router.get('/api/donater', Donater.getAllDonors);
+router.get('/api/donater/stats/summary', Donater.getDonorStats);
+// router.get('/api/donater/prize-type/:prizeType', Donater.getDonorsByPrizeType);
+router.get('/api/donater/department/:department', Donater.getDonorsByDepartment);
+router.get('/api/donater/:id', Donater.getDonorById);
+router.put('/api/donater/:id', Donater.updateDonor);
+router.delete('/api/donater/:id', Donater.deleteDonor);
+
+
+
 
 // @route   GET /api/faculty-forms
 // @desc    Get all faculty forms with filtering, pagination, and search

@@ -1,20 +1,19 @@
-const Donater = require('../models/doner.model'); // Adjust path as needed
+const Donor = require('../models/doner.model');
 
-// @desc    Create a new donater
-// @route   POST /api/donaters
+// @desc    Create a new donor
+// @route   POST /api/donors
 // @access  Public/Private (adjust as needed)
-const createDonater = async (req, res) => {
+const createDonor = async (req, res) => {
   try {
-        console.log('Creating donater with data:', req.body);
-    const donater = new Donater(req.body);
+    console.log('Creating donor with data:', req.body);
+    const donor = new Donor(req.body);
 
-
-    const savedDonater = await donater.save();
+    const savedDonor = await donor.save();
     
     res.status(201).json({
       success: true,
-      data: savedDonater,
-      message: 'Donater created successfully'
+      data: savedDonor,
+      message: 'Donor created successfully'
     });
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -28,16 +27,16 @@ const createDonater = async (req, res) => {
     
     res.status(500).json({
       success: false,
-      message: 'Error creating donater',
+      message: 'Error creating donor',
       error: error.message
     });
   }
 };
 
-// @desc    Get all donaters
-// @route   GET /api/donaters
+// @desc    Get all donors
+// @route   GET /api/donors
 // @access  Public/Private (adjust as needed)
-const getAllDonaters = async (req, res) => {
+const getAllDonors = async (req, res) => {
   try {
     const {
       page = 1,
@@ -45,25 +44,27 @@ const getAllDonaters = async (req, res) => {
       sortBy = 'createdAt',
       sortOrder = 'desc',
       search,
-      prizeType,
+      natureOfEndowment,
       relatedDepart
     } = req.query;
 
     // Build query object
     let query = {};
     
-    // Search functionality
+    // Search functionality - updated for new fields
     if (search) {
       query.$or = [
-        { donaterName: { $regex: search, $options: 'i' } },
-        { prizeName: { $regex: search, $options: 'i' } },
-        { relatedDepart: { $regex: search, $options: 'i' } }
+        { donorName: { $regex: search, $options: 'i' } },
+        { fundOfficialName: { $regex: search, $options: 'i' } },
+        { relatedDepart: { $regex: search, $options: 'i' } },
+        { personInCareOf: { $regex: search, $options: 'i' } },
+        { donorEmail: { $regex: search, $options: 'i' } }
       ];
     }
 
-    // Filter by prize type
-    if (prizeType) {
-      query.prizeType = prizeType;
+    // Filter by nature of endowment
+    if (natureOfEndowment) {
+      query.natureOfEndowment = natureOfEndowment;
     }
 
     // Filter by department
@@ -75,16 +76,16 @@ const getAllDonaters = async (req, res) => {
     const sortOptions = {};
     sortOptions[sortBy] = sortOrder === 'desc' ? -1 : 1;
 
-    const donaters = await Donater.find(query)
+    const donors = await Donor.find(query)
       .sort(sortOptions)
       .limit(limit * 1)
       .skip((page - 1) * limit);
 
-    const total = await Donater.countDocuments(query);
+    const total = await Donor.countDocuments(query);
 
     res.status(200).json({
       success: true,
-      data: donaters,
+      data: donors,
       pagination: {
         currentPage: parseInt(page),
         totalPages: Math.ceil(total / limit),
@@ -95,52 +96,52 @@ const getAllDonaters = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Error fetching donaters',
+      message: 'Error fetching donors',
       error: error.message
     });
   }
 };
 
-// @desc    Get single donater by ID
-// @route   GET /api/donaters/:id
+// @desc    Get single donor by ID
+// @route   GET /api/donors/:id
 // @access  Public/Private (adjust as needed)
-const getDonaterById = async (req, res) => {
+const getDonorById = async (req, res) => {
   try {
-    const donater = await Donater.findById(req.params.id);
+    const donor = await Donor.findById(req.params.id);
     
-    if (!donater) {
+    if (!donor) {
       return res.status(404).json({
         success: false,
-        message: 'Donater not found'
+        message: 'Donor not found'
       });
     }
 
     res.status(200).json({
       success: true,
-      data: donater
+      data: donor
     });
   } catch (error) {
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
-        message: 'Invalid donater ID'
+        message: 'Invalid donor ID'
       });
     }
     
     res.status(500).json({
       success: false,
-      message: 'Error fetching donater',
+      message: 'Error fetching donor',
       error: error.message
     });
   }
 };
 
-// @desc    Update donater
-// @route   PUT /api/donaters/:id
+// @desc    Update donor
+// @route   PUT /api/donors/:id
 // @access  Public/Private (adjust as needed)
-const updateDonater = async (req, res) => {
+const updateDonor = async (req, res) => {
   try {
-    const donater = await Donater.findByIdAndUpdate(
+    const donor = await Donor.findByIdAndUpdate(
       req.params.id,
       req.body,
       { 
@@ -149,17 +150,17 @@ const updateDonater = async (req, res) => {
       }
     );
 
-    if (!donater) {
+    if (!donor) {
       return res.status(404).json({
         success: false,
-        message: 'Donater not found'
+        message: 'Donor not found'
       });
     }
 
     res.status(200).json({
       success: true,
-      data: donater,
-      message: 'Donater updated successfully'
+      data: donor,
+      message: 'Donor updated successfully'
     });
   } catch (error) {
     if (error.name === 'ValidationError') {
@@ -174,132 +175,181 @@ const updateDonater = async (req, res) => {
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
-        message: 'Invalid donater ID'
+        message: 'Invalid donor ID'
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Error updating donater',
+      message: 'Error updating donor',
       error: error.message
     });
   }
 };
 
-// @desc    Delete donater
-// @route   DELETE /api/donaters/:id
+// @desc    Delete donor
+// @route   DELETE /api/donors/:id
 // @access  Public/Private (adjust as needed)
-const deleteDonater = async (req, res) => {
+const deleteDonor = async (req, res) => {
   try {
-    const donater = await Donater.findByIdAndDelete(req.params.id);
+    const donor = await Donor.findByIdAndDelete(req.params.id);
 
-    if (!donater) {
+    if (!donor) {
       return res.status(404).json({
         success: false,
-        message: 'Donater not found'
+        message: 'Donor not found'
       });
     }
 
     res.status(200).json({
       success: true,
-      message: 'Donater deleted successfully'
+      message: 'Donor deleted successfully'
     });
   } catch (error) {
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
-        message: 'Invalid donater ID'
+        message: 'Invalid donor ID'
       });
     }
 
     res.status(500).json({
       success: false,
-      message: 'Error deleting donater',
+      message: 'Error deleting donor',
       error: error.message
     });
   }
 };
 
-// @desc    Get donaters by prize type
-// @route   GET /api/donaters/prize-type/:prizeType
+// @desc    Get donors by nature of endowment
+// @route   GET /api/donors/nature/:nature
 // @access  Public/Private (adjust as needed)
-const getDonatersByPrizeType = async (req, res) => {
+const getDonorsByNature = async (req, res) => {
   try {
-    const { prizeType } = req.params;
+    const { nature } = req.params;
     
-    const donaters = await Donater.find({ prizeType });
+    const donors = await Donor.find({ natureOfEndowment: { $regex: nature, $options: 'i' } });
     
     res.status(200).json({
       success: true,
-      data: donaters,
-      count: donaters.length
+      data: donors,
+      count: donors.length
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Error fetching donaters by prize type',
+      message: 'Error fetching donors by nature of endowment',
       error: error.message
     });
   }
 };
 
-// @desc    Get donaters by department
-// @route   GET /api/donaters/department/:department
+// @desc    Get donors by department
+// @route   GET /api/donors/department/:department
 // @access  Public/Private (adjust as needed)
-const getDonatersByDepartment = async (req, res) => {
+const getDonorsByDepartment = async (req, res) => {
   try {
     const { department } = req.params;
     
-    const donaters = await Donater.find({ 
+    const donors = await Donor.find({ 
       relatedDepart: { $regex: department, $options: 'i' } 
     });
     
     res.status(200).json({
       success: true,
-      data: donaters,
-      count: donaters.length
+      data: donors,
+      count: donors.length
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Error fetching donaters by department',
+      message: 'Error fetching donors by department',
+      error: error.message
+    });
+  }
+};
+
+// @desc    Get donors by funding plan
+// @route   GET /api/donors/funding-plan/:plan
+// @access  Public/Private (adjust as needed)
+const getDonorsByFundingPlan = async (req, res) => {
+  try {
+    const { plan } = req.params;
+    
+    const donors = await Donor.find({ 
+      fundingPlan: { $regex: plan, $options: 'i' } 
+    });
+    
+    res.status(200).json({
+      success: true,
+      data: donors,
+      count: donors.length
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching donors by funding plan',
       error: error.message
     });
   }
 };
 
 // @desc    Get statistics
-// @route   GET /api/donaters/stats/summary
+// @route   GET /api/donors/stats/summary
 // @access  Public/Private (adjust as needed)
-const getDonaterStats = async (req, res) => {
+const getDonorStats = async (req, res) => {
   try {
-    const totalDonaters = await Donater.countDocuments();
+    const totalDonors = await Donor.countDocuments();
     
-    const prizeTypeStats = await Donater.aggregate([
+    const natureStats = await Donor.aggregate([
       {
         $group: {
-          _id: '$prizeType',
-          count: { $sum: 1 }
+          _id: '$natureOfEndowment',
+          count: { $sum: 1 },
+          totalPrincipalAmount: { $sum: '$principalAmountOfEndowment' },
+          totalEndowmentAmount: { $sum: '$amountOfEndowment' }
         }
-      }
+      },
+      { $sort: { count: -1 } }
     ]);
 
-    const departmentStats = await Donater.aggregate([
+    const departmentStats = await Donor.aggregate([
       {
         $group: {
           _id: '$relatedDepart',
-          count: { $sum: 1 }
+          count: { $sum: 1 },
+          totalPrincipalAmount: { $sum: '$principalAmountOfEndowment' }
         }
       },
       { $sort: { count: -1 } },
       { $limit: 10 }
     ]);
 
+    const totalPrincipalAmount = await Donor.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$principalAmountOfEndowment' }
+        }
+      }
+    ]);
+
+    const totalEndowmentAmount = await Donor.aggregate([
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$amountOfEndowment' }
+        }
+      }
+    ]);
+
     res.status(200).json({
       success: true,
       data: {
-        totalDonaters,
-        prizeTypeStats,
+        totalDonors,
+        totalPrincipalAmount: totalPrincipalAmount[0]?.total || 0,
+        totalEndowmentAmount: totalEndowmentAmount[0]?.total || 0,
+        natureStats,
         topDepartments: departmentStats
       }
     });
@@ -312,13 +362,65 @@ const getDonaterStats = async (req, res) => {
   }
 };
 
+// @desc    Get financial summary
+// @route   GET /api/donors/stats/financial
+// @access  Public/Private (adjust as needed)
+const getFinancialStats = async (req, res) => {
+  try {
+    const financialStats = await Donor.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalPrincipalAmount: { $sum: '$principalAmountOfEndowment' },
+          totalEndowmentAmount: { $sum: '$amountOfEndowment' },
+          avgPrincipalAmount: { $avg: '$principalAmountOfEndowment' },
+          avgEndowmentAmount: { $avg: '$amountOfEndowment' },
+          maxPrincipalAmount: { $max: '$principalAmountOfEndowment' },
+          minPrincipalAmount: { $min: '$principalAmountOfEndowment' },
+          count: { $sum: 1 }
+        }
+      }
+    ]);
+
+    const yearlyStats = await Donor.aggregate([
+      {
+        $group: {
+          _id: {
+            year: { $year: '$agreementDate' }
+          },
+          count: { $sum: 1 },
+          totalPrincipalAmount: { $sum: '$principalAmountOfEndowment' },
+          totalEndowmentAmount: { $sum: '$amountOfEndowment' }
+        }
+      },
+      { $sort: { '_id.year': -1 } }
+    ]);
+
+    res.status(200).json({
+      success: true,
+      data: {
+        overview: financialStats[0] || {},
+        yearlyBreakdown: yearlyStats
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error fetching financial statistics',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
-  createDonater,
-  getAllDonaters,
-  getDonaterById,
-  updateDonater,
-  deleteDonater,
-  getDonatersByPrizeType,
-  getDonatersByDepartment,
-  getDonaterStats
+  createDonor,
+  getAllDonors,
+  getDonorById,
+  updateDonor,
+  deleteDonor,
+  getDonorsByNature,
+  getDonorsByDepartment,
+  getDonorsByFundingPlan,
+  getDonorStats,
+  getFinancialStats
 };

@@ -28,10 +28,13 @@ const allowedOrigins = [
   'http://localhost:5173',                    // Vite dev server
   'http://127.0.0.1:3000',                    // Alternative localhost
   'http://127.0.0.1:5173',   
-   'http://127.0.0.1:4173',    
-   'http://172.25.205.32',
-   'http://202.70.90.11:81'                                // Alternative localhost
+  'http://127.0.0.1:4173',    
+  'http://172.25.205.32',
+  'http://202.70.90.11:81',                   // Alternative localhost
+  'http://digitaldashboard.tu.edu.np:81',      // Added new allowed origin
+    'http://digitaldashboard.tu.edu.np'  
 ].filter(Boolean);
+
 
 // Debug logging (remove in production)
 console.log('🔍 Allowed CORS Origins:', allowedOrigins);

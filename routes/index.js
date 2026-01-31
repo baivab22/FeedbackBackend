@@ -2206,9 +2206,12 @@ router.put('/api/progress/:id', progressController.updateReport);
 
 
 router.post('/api/faculty-forms', FacultyFormController.createFacultyForm);
+router.get('/api/faculty-forms/analytics/overview', FacultyFormController.getFacultyAnalytics);
 router.get('/api/faculty-forms', FacultyFormController.getFacultyForms);
-
-
+router.get('/api/faculty-forms/:id', FacultyFormController.getFacultyFormById);
+router.put('/api/faculty-forms/:id', FacultyFormController.updateFacultyForm);
+router.delete('/api/faculty-forms/:id', FacultyFormController.deleteFacultyForm);
+router.patch('/api/faculty-forms/:id/approve', FacultyFormController.approveFacultyForm);
 
 
 router.post('/api/donater', Donater.createDonor);

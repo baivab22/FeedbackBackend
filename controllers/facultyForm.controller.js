@@ -184,14 +184,21 @@ const updateFacultyForm = async (req, res) => {
     const { id } = req.params;
     const updateData = req.body;
 
+    console.log('Updating faculty form:', id);
+    console.log('Update data received:', updateData);
+
     // Validate ObjectId
     const mongoose = require('mongoose');
     if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.error('Invalid ObjectId:', id);
       return res.status(400).json({
         success: false,
         message: 'Invalid faculty form ID'
       });
     }
+
+    // Add updatedAt timestamp
+    updateData.updatedAt = new Date();
 
     // Find and update the faculty form
     const facultyForm = await FacultyForm.findByIdAndUpdate(
@@ -204,11 +211,14 @@ const updateFacultyForm = async (req, res) => {
     );
 
     if (!facultyForm) {
+      console.error('Faculty form not found:', id);
       return res.status(404).json({
         success: false,
         message: 'Faculty form not found'
       });
     }
+
+    console.log('Faculty form updated successfully:', facultyForm._id);
 
     res.status(200).json({
       success: true,
@@ -221,10 +231,20 @@ const updateFacultyForm = async (req, res) => {
     // Handle validation errors
     if (error.name === 'ValidationError') {
       const errors = Object.values(error.errors).map(err => err.message);
+      console.error('Validation errors:', errors);
       return res.status(400).json({
         success: false,
         message: 'Validation failed',
         errors
+      });
+    }
+
+    // Handle duplicate key errors
+    if (error.code === 11000) {
+      console.error('Duplicate key error:', error);
+      return res.status(400).json({
+        success: false,
+        message: 'Duplicate entry - Faculty form with similar data already exists'
       });
     }
 

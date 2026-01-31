@@ -36,6 +36,10 @@ const studentEnrollmentSchema = new mongoose.Schema({
     enum: ['Bachelor', 'Master', 'MPhil', 'PhD'],
     trim: true
   },
+  batch: {
+    type: String,
+    trim: true
+  },
   // Constituent Campus - Exam Appeared
   constituentExamAppearedM: {
     type: Number,
@@ -144,6 +148,10 @@ const graduateSchema = new mongoose.Schema({
   semester: {
     type: String,
     required: true,
+    trim: true
+  },
+  batch: {
+    type: String,
     trim: true
   },
   // Constituent Campus - Exam Appeared

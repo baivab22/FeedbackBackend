@@ -2,10 +2,10 @@
   "name": "university-feedback-backend",
   "version": "1.0.0",
   "description": "University Feedback System Backend (Express + MongoDB + JWT). Notifications removed as requested.",
-  "main": "src/server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
     "lint": "echo \"No lint configured for backend\" && exit 0"
   },
   "keywords": [

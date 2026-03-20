@@ -32,8 +32,8 @@ const allowedOrigins = [
   'http://172.25.205.32',
   'http://202.70.90.11:81',                   // Alternative localhost
   'http://digitaldashboard.tu.edu.np:81',      // Added new allowed origin
-    'http://digitaldashboard.tu.edu.np'  ,
-    'https://digitaldashboard.tu.edu.np'
+  'http://digitaldashboard.tu.edu.np'  ,
+  'https://digitaldashboard.tu.edu.np'
 ].filter(Boolean);
 
 

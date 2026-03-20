@@ -50,6 +50,7 @@ const {
 
 
 const { generateSummaryDocx } = require('../controllers/summaryController');
+const surveyReportRoutes = require('./surveyReport.routes');
 const FacultyForm = require('../models/facultyForm.model');
 
 
@@ -611,6 +612,9 @@ router.get('/api/admin/reports/summary', async (_req, res) => {
     return res.status(500).json({ message: 'Failed to build report', error: err.message });
   }
 });
+
+// Survey Report Routes
+router.use('/api', surveyReportRoutes);
 
 module.exports = router;
 router.post('/api/progress/generateSummary', generateSummaryDocx);

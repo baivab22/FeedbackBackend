@@ -1,12 +1,20 @@
 const asyncHandler = require('express-async-handler');
 const SurveyReport = require('../models/surveyReport.model');
-const User = require('../models/User');
-const path = require('path');
 const fs = require('fs');
+
+const isAdminRequest = (req) => Boolean(req.user && req.user.role === 'admin');
+
+const getReadableReportQuery = (id, req) => {
+  const query = { _id: id, isActive: true };
+  if (!isAdminRequest(req)) {
+    query.status = 'approved';
+  }
+  return query;
+};
 
 // @desc    Create a new survey report
 // @route   POST /api/survey-reports
-// @access  Private
+// @access  Private/Admin
 const createSurveyReport = asyncHandler(async (req, res) => {
   try {
     const { collegeName, reportYear, description } = req.body;
@@ -21,9 +29,10 @@ const createSurveyReport = asyncHandler(async (req, res) => {
     }
 
     // Check if report already exists
-    const existingReport = await SurveyReport.findOne({ 
-      collegeName, 
-      reportYear 
+    const existingReport = await SurveyReport.findOne({
+      collegeName,
+      reportYear,
+      isActive: true
     });
 
     if (existingReport) {
@@ -91,6 +100,7 @@ const getSurveyReports = asyncHandler(async (req, res) => {
 
     const skip = (page - 1) * limit;
     const query = { isActive: true };
+    const adminRequest = isAdminRequest(req);
 
     if (collegeName) {
       query.collegeName = new RegExp(collegeName, 'i');
@@ -98,8 +108,12 @@ const getSurveyReports = asyncHandler(async (req, res) => {
     if (reportYear) {
       query.reportYear = reportYear;
     }
-    if (status) {
+    if (status && adminRequest) {
       query.status = status;
+    }
+
+    if (!adminRequest) {
+      query.status = 'approved';
     }
 
     if (search) {
@@ -147,8 +161,8 @@ const getSurveyReportById = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
 
-    const report = await SurveyReport.findByIdAndUpdate(
-      id,
+    const report = await SurveyReport.findOneAndUpdate(
+      getReadableReportQuery(id, req),
       { $inc: { viewCount: 1 } },
       { new: true }
     ).populate('uploadedBy', 'name email');
@@ -176,7 +190,7 @@ const getSurveyReportById = asyncHandler(async (req, res) => {
 
 // @desc    Update a survey report
 // @route   PUT /api/survey-reports/:id
-// @access  Private
+// @access  Private/Admin
 const updateSurveyReport = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
@@ -200,11 +214,11 @@ const updateSurveyReport = asyncHandler(async (req, res) => {
       });
     }
 
-    if (collegeName) report.collegeName = collegeName;
-    if (reportYear) report.reportYear = reportYear;
-    if (description) report.description = description;
-    if (status && role === 'admin') report.status = status;
-    if (remarks && role === 'admin') report.remarks = remarks;
+    if (collegeName !== undefined) report.collegeName = collegeName;
+    if (reportYear !== undefined) report.reportYear = reportYear;
+    if (description !== undefined) report.description = description;
+    if (status !== undefined && role === 'admin') report.status = status;
+    if (remarks !== undefined && role === 'admin') report.remarks = remarks;
 
     // Handle new PDF file
     if (req.file) {
@@ -254,7 +268,7 @@ const deleteSurveyReport = asyncHandler(async (req, res) => {
     const { id } = req.params;
     const { id: userId, role } = req.user;
 
-    const report = await SurveyReport.findById(id);
+    const report = await SurveyReport.findOne(getReadableReportQuery(id, req));
 
     if (!report) {
       return res.status(404).json({
@@ -303,7 +317,7 @@ const downloadSurveyReportPDF = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
 
-    const report = await SurveyReport.findById(id);
+    const report = await SurveyReport.findOne(getReadableReportQuery(id, req));
 
     if (!report || !report.pdfFile) {
       return res.status(404).json({
@@ -339,7 +353,7 @@ const getSurveyReportPDF = asyncHandler(async (req, res) => {
   try {
     const { id } = req.params;
 
-    const report = await SurveyReport.findById(id);
+    const report = await SurveyReport.findOne(getReadableReportQuery(id, req));
 
     if (!report || !report.pdfFile) {
       return res.status(404).json({

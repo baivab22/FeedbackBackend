@@ -62,6 +62,7 @@ router.get('/survey-reports/:id/download', downloadSurveyReportPDF);
 router.post(
   '/survey-reports',
   verifyJWT,
+  requireRole('admin'),
   pdfUpload.single('pdfFile'),
   createSurveyReport
 );
@@ -70,6 +71,7 @@ router.post(
 router.put(
   '/survey-reports/:id',
   verifyJWT,
+  requireRole('admin'),
   pdfUpload.single('pdfFile'),
   updateSurveyReport
 );
@@ -78,6 +80,7 @@ router.put(
 router.delete(
   '/survey-reports/:id',
   verifyJWT,
+  requireRole('admin'),
   deleteSurveyReport
 );
 

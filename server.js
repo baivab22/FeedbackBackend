@@ -140,17 +140,41 @@ app.use((err, req, res, _next) => {
 });
 
 // ---------------- Start Server ----------------
-const PORT = process.env.PORT || 4000;
+const BASE_PORT = Number(process.env.PORT) || 4000;
+const MAX_PORT_RETRIES = 10;
+
+function listenWithFallback(startPort, retriesLeft) {
+  const server = app.listen(startPort);
+
+  server.once('listening', () => {
+    console.log(`🚀 Server running on port ${startPort}`);
+    console.log('🌐 CORS enabled for origins:', allowedOrigins);
+  });
+
+  server.once('error', (err) => {
+    if (err.code === 'EADDRINUSE' && retriesLeft > 0) {
+      const nextPort = startPort + 1;
+      console.warn(`⚠️ Port ${startPort} is in use, trying port ${nextPort}...`);
+      return listenWithFallback(nextPort, retriesLeft - 1);
+    }
+
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ No free port found from ${BASE_PORT} to ${BASE_PORT + MAX_PORT_RETRIES}.`);
+      console.error(`   Free a port or set PORT in .env to an available value.`);
+      process.exit(1);
+    }
+
+    console.error('❌ Failed to start server:', err.message);
+    process.exit(1);
+  });
+}
 
 (async () => {
   try {
     await connectDB(process.env.MONGODB_URI);
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`🌐 CORS enabled for origins:`, allowedOrigins);
-    });
+    listenWithFallback(BASE_PORT, MAX_PORT_RETRIES);
   } catch (err) {
-    console.error('❌ Failed to connect DB:', err.message);
+    console.error('❌ Failed to start server:', err.message);
     process.exit(1);
   }
 })();

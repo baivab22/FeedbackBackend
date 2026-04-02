@@ -50,6 +50,7 @@ const {
 
 
 const { generateSummaryDocx } = require('../controllers/summaryController');
+const eventController = require('../controllers/event.controller');
 const surveyReportRoutes = require('./surveyReport.routes');
 const FacultyForm = require('../models/facultyForm.model');
 
@@ -65,6 +66,18 @@ const uploadDir = path.join(process.cwd(), 'uploads');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
+
+// Cleanup function to remove uploaded files on error
+const cleanupUploadedFiles = (files) => {
+  if (!files || files.length === 0) return;
+  files.forEach((file) => {
+    const filePath = path.join(uploadDir, file.filename);
+    fs.unlink(filePath, (err) => {
+      if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+    });
+  });
+};
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, uploadDir),
   filename: (_req, file, cb) => {
@@ -73,14 +86,39 @@ const storage = multer.diskStorage({
     cb(null, `${unique}-${safe}`);
   }
 });
+
 const upload = multer({
   storage,
-  limits: { fileSize: 15 * 1024 * 1024, files: 5 },
+  limits: { 
+    fileSize: 15 * 1024 * 1024,  // 15MB per file
+    files: 10,  // Maximum 10 files per request
+    fieldSize: 2 * 1024 * 1024   // Limit field size for safety
+  },
   fileFilter: (_req, file, cb) => {
-    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) return cb(null, true);
+    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+      return cb(null, true);
+    }
     return cb(new Error('Only images and videos are allowed'));
   }
 });
+
+// Middleware to cleanup files on error
+const cleanupOnError = (err, _req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    // Cleanup uploaded files if multer error occurs
+    if (_req.files && _req.files.length > 0) {
+      cleanupUploadedFiles(_req.files);
+    }
+    return res.status(400).json({ success: false, message: `Upload error: ${err.message}` });
+  } else if (err) {
+    // Cleanup uploaded files if other error occurs
+    if (_req.files && _req.files.length > 0) {
+      cleanupUploadedFiles(_req.files);
+    }
+    return res.status(400).json({ success: false, message: err.message });
+  }
+  next();
+};
 
 /**
  * Helpers
@@ -187,18 +225,45 @@ router.get('/api/departments', async (req, res) => {
 // Create suggestion (anonymous or authenticated) with optional media files
 // Accepts multipart/form-data with fields: category, description, anonymous, actionTaken
 // and files under field name "media"
-router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
+router.post('/api/suggestions', upload.array('media', 5), cleanupOnError, async (req, res) => {
   try {
     const { category, description, assignedDepartment, actionTaken } = req.body || {};
     const anonymous = String(req.body?.anonymous || 'true') === 'true';
 
     if (!category || !description) {
+      // Cleanup files on validation failure
+      if (req.files && req.files.length > 0) {
+        req.files.forEach((file) => {
+          const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+          });
+        });
+      }
       return res.status(400).json({ message: 'category and description are required' });
     }
     if (!CATEGORIES.includes(category)) {
+      // Cleanup files on validation failure
+      if (req.files && req.files.length > 0) {
+        req.files.forEach((file) => {
+          const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+          });
+        });
+      }
       return res.status(400).json({ message: `Invalid category. Allowed: ${CATEGORIES.join(', ')}` });
     }
     if (!anonymous && !req.user) {
+      // Cleanup files on auth failure
+      if (req.files && req.files.length > 0) {
+        req.files.forEach((file) => {
+          const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+          });
+        });
+      }
       return res.status(401).json({ message: 'Authentication required for non-anonymous submission' });
     }
 
@@ -206,12 +271,30 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
     if (assignedDepartment) {
       const department = await Department.findOne({ name: assignedDepartment, isActive: true });
       if (!department) {
+        // Cleanup files on department validation failure
+        if (req.files && req.files.length > 0) {
+          req.files.forEach((file) => {
+            const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+            fs.unlink(filePath, (err) => {
+              if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+            });
+          });
+        }
         return res.status(400).json({ message: 'Invalid or inactive department' });
       }
     }
 
     // Validate actionTaken length if provided
     if (actionTaken && actionTaken.length > 20000) {
+      // Cleanup files on validation failure
+      if (req.files && req.files.length > 0) {
+        req.files.forEach((file) => {
+          const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+          });
+        });
+      }
       return res.status(400).json({ message: 'Action taken cannot exceed 20000 characters' });
     }
 
@@ -236,6 +319,15 @@ router.post('/api/suggestions', upload.array('media', 5), async (req, res) => {
     });
     return res.status(201).json({ suggestion: doc.toPublicJSON() });
   } catch (err) {
+    // Cleanup files on error
+    if (req.files && req.files.length > 0) {
+      req.files.forEach((file) => {
+        const filePath = path.join(path.join(process.cwd(), 'uploads'), file.filename);
+        fs.unlink(filePath, (err) => {
+          if (err) console.error(`Failed to cleanup file ${file.filename}:`, err);
+        });
+      });
+    }
     return res.status(500).json({ message: 'Failed to create suggestion', error: err.message });
   }
 });
@@ -613,8 +705,22 @@ router.get('/api/admin/reports/summary', async (_req, res) => {
   }
 });
 
+/**
+ * Event Routes
+ */
+router.get('/api/events', eventController.listPublicEvents);
+router.get('/api/events/:id', eventController.getEventById);
+
+router.get('/api/admin/events', eventController.listAdminEvents);
+router.post('/api/admin/events', upload.array('images', 10), cleanupOnError, eventController.createEvent);
+router.put('/api/admin/events/:id', upload.array('images', 10), cleanupOnError, eventController.updateEvent);
+router.delete('/api/admin/events/:id', eventController.deleteEvent);
+
 // Survey Report Routes
 router.use('/api', surveyReportRoutes);
+
+// Apply error handler for multer errors on all upload routes
+router.use(cleanupOnError);
 
 module.exports = router;
 router.post('/api/progress/generateSummary', generateSummaryDocx);

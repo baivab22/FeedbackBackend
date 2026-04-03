@@ -27,6 +27,19 @@ function parseImageArray(input) {
   return parseJsonArray(input).filter((item) => typeof item === 'string' && item.trim() !== '');
 }
 
+function extractImageArray(source = {}) {
+  const values = [source.images, source.imageUrls, source.imageUrl, source.image];
+  return values.flatMap((value) => parseImageArray(value));
+}
+
+function normalizeEventImages(event) {
+  const plainEvent = typeof event?.toObject === 'function' ? event.toObject() : { ...(event || {}) };
+  return {
+    ...plainEvent,
+    images: extractImageArray(plainEvent),
+  };
+}
+
 function buildImageUrls(req, files) {
   return (files || []).map((file) => `${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
 }
@@ -59,7 +72,7 @@ exports.listPublicEvents = async (req, res) => {
       page,
       limit,
       total,
-      events,
+      events: events.map(normalizeEventImages),
     });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Failed to fetch events', error: error.message });
@@ -89,7 +102,7 @@ exports.listAdminEvents = async (req, res) => {
       Event.countDocuments(filter),
     ]);
 
-    res.json({ success: true, page, limit, total, events });
+    res.json({ success: true, page, limit, total, events: events.map(normalizeEventImages) });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Failed to fetch admin events', error: error.message });
   }
@@ -107,7 +120,7 @@ exports.getEventById = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Event not found' });
     }
 
-    return res.json({ success: true, event });
+    return res.json({ success: true, event: normalizeEventImages(event) });
   } catch (error) {
     return res.status(500).json({ success: false, message: 'Failed to fetch event', error: error.message });
   }
@@ -142,7 +155,7 @@ exports.createEvent = async (req, res) => {
       return res.status(400).json({ success: false, message: 'title, description and eventDate are required' });
     }
 
-    const cloudinaryImages = parseImageArray(req.body?.images);
+    const cloudinaryImages = extractImageArray(req.body || {});
     const uploadedImages = buildImageUrls(req, req.files);
     const images = [...cloudinaryImages, ...uploadedImages];
 
@@ -158,7 +171,7 @@ exports.createEvent = async (req, res) => {
       isFeatured: parseBoolean(isFeatured, false),
     });
 
-    return res.status(201).json({ success: true, message: 'Event created successfully', event });
+    return res.status(201).json({ success: true, message: 'Event created successfully', event: normalizeEventImages(event) });
   } catch (error) {
     // Cleanup files on error
     if (req.files && req.files.length > 0) {
@@ -214,7 +227,7 @@ exports.updateEvent = async (req, res) => {
 
     const removedImages = parseJsonArray(req.body.removedImages);
     const hasImagesField = Object.prototype.hasOwnProperty.call(req.body || {}, 'images');
-    const cloudinaryImages = parseImageArray(req.body?.images);
+    const cloudinaryImages = extractImageArray(req.body || {});
     const newImageUrls = buildImageUrls(req, req.files);
     const retainedImages = event.images.filter((img) => !removedImages.includes(img));
 
@@ -235,7 +248,7 @@ exports.updateEvent = async (req, res) => {
 
     await event.save();
 
-    return res.json({ success: true, message: 'Event updated successfully', event });
+    return res.json({ success: true, message: 'Event updated successfully', event: normalizeEventImages(event) });
   } catch (error) {
     // Cleanup files on error
     if (req.files && req.files.length > 0) {

@@ -51,6 +51,7 @@ const {
 
 const { generateSummaryDocx } = require('../controllers/summaryController');
 const eventController = require('../controllers/event.controller');
+const campusListController = require('../controllers/campusList.controller');
 const surveyReportRoutes = require('./surveyReport.routes');
 const FacultyForm = require('../models/facultyForm.model');
 
@@ -2244,6 +2245,23 @@ router.get('/api/progress/analytics', progressController.getAnalytics);
 router.get('/api/progress/export/csv', progressController.exportCSV);
 router.get('/api/progress/college/:collegeId', progressController.getReportsByCollege);
 router.get('/api/progress/:id', progressController.getReportById);
+
+// Campus List CRUD
+router.get('/api/campus-list', campusListController.listCampusRecords);
+router.get('/api/campuslist', campusListController.listCampusRecords);
+router.get('/api/campuses', campusListController.listCampusRecords);
+router.get('/api/campus-list/:id', campusListController.getCampusRecord);
+router.get('/api/campuslist/:id', campusListController.getCampusRecord);
+router.get('/api/campuses/:id', campusListController.getCampusRecord);
+router.post('/api/campus-list', campusListController.createCampusRecord);
+router.post('/api/campuslist', campusListController.createCampusRecord);
+router.post('/api/campuses', campusListController.createCampusRecord);
+router.put('/api/campus-list/:id', campusListController.updateCampusRecord);
+router.put('/api/campuslist/:id', campusListController.updateCampusRecord);
+router.put('/api/campuses/:id', campusListController.updateCampusRecord);
+router.delete('/api/campus-list/:id', campusListController.deleteCampusRecord);
+router.delete('/api/campuslist/:id', campusListController.deleteCampusRecord);
+router.delete('/api/campuses/:id', campusListController.deleteCampusRecord);
 
 
 // for college form

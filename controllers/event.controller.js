@@ -23,6 +23,10 @@ function parseJsonArray(input) {
   }
 }
 
+function parseImageArray(input) {
+  return parseJsonArray(input).filter((item) => typeof item === 'string' && item.trim() !== '');
+}
+
 function buildImageUrls(req, files) {
   return (files || []).map((file) => `${req.protocol}://${req.get('host')}/uploads/${file.filename}`);
 }
@@ -138,7 +142,9 @@ exports.createEvent = async (req, res) => {
       return res.status(400).json({ success: false, message: 'title, description and eventDate are required' });
     }
 
-    const images = buildImageUrls(req, req.files);
+    const cloudinaryImages = parseImageArray(req.body?.images);
+    const uploadedImages = buildImageUrls(req, req.files);
+    const images = [...cloudinaryImages, ...uploadedImages];
 
     const event = await Event.create({
       title: String(title).trim(),
@@ -207,6 +213,8 @@ exports.updateEvent = async (req, res) => {
     }
 
     const removedImages = parseJsonArray(req.body.removedImages);
+    const hasImagesField = Object.prototype.hasOwnProperty.call(req.body || {}, 'images');
+    const cloudinaryImages = parseImageArray(req.body?.images);
     const newImageUrls = buildImageUrls(req, req.files);
     const retainedImages = event.images.filter((img) => !removedImages.includes(img));
 
@@ -219,7 +227,11 @@ exports.updateEvent = async (req, res) => {
     if (req.body.status !== undefined) event.status = normalizeStatus(req.body.status) || event.status;
     if (req.body.isFeatured !== undefined) event.isFeatured = parseBoolean(req.body.isFeatured, event.isFeatured);
 
-    event.images = [...retainedImages, ...newImageUrls];
+    if (hasImagesField) {
+      event.images = [...cloudinaryImages, ...newImageUrls];
+    } else {
+      event.images = [...retainedImages, ...newImageUrls];
+    }
 
     await event.save();
 

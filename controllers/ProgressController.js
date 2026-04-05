@@ -1295,85 +1295,12 @@ class ProgressController {
   async createReport(req, res) {
     try {
       const reportData = req.body;
-      
-      // Basic validation
-      if (!reportData.collegeId || !reportData.collegeName || !reportData.academicYear) {
-        return res.status(400).json({
-          success: false,
-          message: 'College ID, College Name, and Academic Year are required'
-        });
-      }
-
-      // Validate programs array with new structure
-      if (!reportData.programs || !Array.isArray(reportData.programs) || reportData.programs.length === 0) {
-        return res.status(400).json({
-          success: false,
-          message: 'At least one program is required'
-        });
-      }
-
-      // Validate each program with new structure
       const validationErrors = [];
-      for (let i = 0; i < reportData.programs.length; i++) {
-        const program = reportData.programs[i];
-        const programIndex = i + 1;
 
-        // Validate new required fields
-        if (!program.institution || program.institution.trim() === '') {
-          validationErrors.push(`Program ${programIndex}: Institution is required`);
-        }
-
-        if (!program.level || program.level.trim() === '') {
-          validationErrors.push(`Program ${programIndex}: Level is required`);
-        }
-
-        if (!program.programName || program.programName.trim() === '') {
-          validationErrors.push(`Program ${programIndex}: Program name is required`);
-        }
-
-        // Validate gender distribution
-        const maleStudents = program.maleStudents || 0;
-        const femaleStudents = program.femaleStudents || 0;
-        const totalStudents = program.totalStudents || 0;
-
-        if (maleStudents < 0 || femaleStudents < 0) {
-          validationErrors.push(`Program ${programIndex} (${program.programName}): Student counts cannot be negative`);
-        }
-
-        if (maleStudents + femaleStudents !== totalStudents) {
-          validationErrors.push(
-            `Program ${programIndex} (${program.programName}): Male (${maleStudents}) + Female (${femaleStudents}) must equal Total Students (${totalStudents})`
-          );
-        }
-
-        // Validate scholarship students
-        const scholarshipStudents = program.scholarshipStudents || 0;
-        if (scholarshipStudents < 0) {
-          validationErrors.push(`Program ${programIndex} (${program.programName}): Scholarship students cannot be negative`);
-        }
-
-        if (scholarshipStudents > totalStudents) {
-          validationErrors.push(
-            `Program ${programIndex} (${program.programName}): Scholarship students (${scholarshipStudents}) cannot exceed total students (${totalStudents})`
-          );
-        }
-
-        // Validate admissions and graduations
-        if (program.newAdmissions < 0 || program.graduatedStudents < 0) {
-          validationErrors.push(`Program ${programIndex} (${program.programName}): Admissions and graduations cannot be negative`);
-        }
-
-        // Validate pass percentage
-        if (program.passPercentage < 0 || program.passPercentage > 100) {
-          validationErrors.push(`Program ${programIndex} (${program.programName}): Pass percentage must be between 0 and 100`);
-        }
-      }
-
-      // Simple financial data validation
       if (reportData.financialStatus) {
         const financial = reportData.financialStatus;
         const categories = ['salaries', 'capital', 'operational', 'research'];
-        
+
         for (const category of categories) {
           if (financial[category]) {
             const data = financial[category];
@@ -1384,19 +1311,19 @@ class ProgressController {
         }
       }
 
+      // Validate infrastructure data only for negative values
+      if (reportData.classroomCount < 0 || reportData.labCount < 0 || reportData.libraryBooks < 0) {
+        return res.status(400).json({
+          success: false,
+          message: 'Infrastructure counts cannot be negative'
+        });
+      }
+
       if (validationErrors.length > 0) {
         return res.status(400).json({
           success: false,
           message: 'Validation errors',
           errors: validationErrors
-        });
-      }
-
-      // Validate infrastructure data
-      if (reportData.classroomCount < 0 || reportData.labCount < 0 || reportData.libraryBooks < 0) {
-        return res.status(400).json({
-          success: false,
-          message: 'Infrastructure counts cannot be negative'
         });
       }
       

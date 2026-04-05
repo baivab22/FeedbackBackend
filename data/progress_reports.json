@@ -418,7 +418,6 @@
     "createdAt": "2025-10-14T15:16:48.860Z",
     "updatedAt": "2025-10-14T15:16:48.860Z"
   },
-
   {
     "id": "1760456434971",
     "collegeId": "TU-458345",
@@ -505,8 +504,6 @@
     "createdAt": "2025-10-14T15:42:56.108Z",
     "updatedAt": "2025-10-14T15:42:56.108Z"
   },
-
-
   {
     "id": "1760523395281",
     "collegeId": "TU_NEPALCOLLEGE",
@@ -1676,5 +1673,452 @@
     },
     "createdAt": "2025-10-25T06:56:39.115Z",
     "updatedAt": "2025-10-25T06:56:39.115Z"
+  },
+  {
+    "id": "1775393729815",
+    "collegeId": "campust123",
+    "collegeName": "IOE",
+    "academicYear": "2025-2026",
+    "submissionDate": "2026-04-05",
+    "totalStudents": 7,
+    "programs": [
+      {
+        "institution": "Faculty of Education (FoE)",
+        "level": "Master",
+        "programName": "M.Ed in ICT",
+        "totalStudents": 7,
+        "maleStudents": 3,
+        "femaleStudents": 4,
+        "scholarshipStudents": 3,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 1,
+        "graduatedStudents": 2,
+        "passPercentage": 9.8,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775393530/tu-progress-reports/campust123/2025-2026/M.Ed_in_ICT_1775393526912.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/campust123/2025-2026/M.Ed_in_ICT_1775393526912"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 45,
+    "labCount": 42,
+    "libraryBooks": 5,
+    "itConnectivity": "Excellent",
+    "academicProgress": "ytrerefdsfa",
+    "researchProgress": "dsfdsafadsfdgdsg",
+    "adminProgress": "fhdfgdhdfdg",
+    "qualityProgress": "sgdsfasferewrw",
+    "majorChallenges": "fdsafbfdgdfgd",
+    "nextYearPlan": "fagfertetf",
+    "headName": "fdfdsfdsfasdf",
+    "principalName": "fgfdgfg",
+    "submittedBy": "fafdsafasf",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 453434,
+        "actualExpenditure": 5654,
+        "revenueGenerated": 2434,
+        "sources": [
+          "fsdfadfds fadfaf ",
+          "fadsfdasfads",
+          "rggdfg",
+          ""
+        ]
+      },
+      "capital": {
+        "annualBudget": 4330,
+        "actualExpenditure": 3450,
+        "revenueGenerated": 4526,
+        "sources": [
+          "dsafsdaf",
+          "dsfadfdsf",
+          "dfgfdg",
+          "jyuyrtu",
+          ""
+        ]
+      },
+      "operational": {
+        "annualBudget": 34,
+        "actualExpenditure": 40,
+        "revenueGenerated": 32,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 45,
+        "actualExpenditure": 3,
+        "revenueGenerated": 18,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775393618/tu-progress-reports/campust123/2025-2026/financial/auditedFinancialStatements_campust123_1775393615183.png",
+        "auditedFinancialStatementsFilename": "order-confirmation-ORD-1775286398508-162837.png",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775393634/tu-progress-reports/campust123/2025-2026/financial/budgetCopy_campust123_1775393633860.jpg",
+        "budgetCopyFilename": "logosss.jpeg"
+      },
+      "totalAnnualBudget": 457843,
+      "totalActualExpenditure": 9147,
+      "totalRevenueGenerated": 7010
+    },
+    "createdAt": "2026-04-05T12:55:29.815Z",
+    "updatedAt": "2026-04-05T12:55:29.815Z"
+  },
+  {
+    "id": "1775403841240",
+    "collegeId": "Campus123",
+    "collegeName": "Mycampus",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-05",
+    "totalStudents": 478,
+    "programs": [
+      {
+        "institution": "Institute of Engineering (IOE)",
+        "level": "Master",
+        "programName": "Disaster Risk Management",
+        "totalStudents": 79,
+        "maleStudents": 23,
+        "femaleStudents": 56,
+        "scholarshipStudents": 3,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 23,
+        "graduatedStudents": 45,
+        "passPercentage": 12,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775403381/tu-progress-reports/Campus123/2082-2083/Disaster_Risk_Management_1775403377983.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/Campus123/2082-2083/Disaster_Risk_Management_1775403377983"
+      },
+      {
+        "institution": "Institute of Agriculture and Animal Science (IAAS)",
+        "level": "Bachelor",
+        "programName": "Bachelor of Science in Agriculture (B.Sc.Ag.)",
+        "totalStudents": 399,
+        "maleStudents": 354,
+        "femaleStudents": 45,
+        "scholarshipStudents": 89,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 23,
+        "graduatedStudents": 90,
+        "passPercentage": 12,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775403433/tu-progress-reports/Campus123/2082-2083/Bachelor_of_Science_in_Agriculture_%28B.Sc.Ag.%29_1775403432729.pdf",
+        "approvalLetterFilename": "2026-04-05 14-59.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/Campus123/2082-2083/Bachelor_of_Science_in_Agriculture_(B.Sc.Ag.)_1775403432729"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 230,
+    "labCount": 120,
+    "libraryBooks": 122,
+    "itConnectivity": "Good",
+    "academicProgress": "During the reporting year, significant advancements were made in strengthening academic programs and improving curriculum delivery. New academic programs were introduced in response to emerging industry demands and student interests. Existing curricula underwent systematic review and revision to align with updated academic standards, technological advancements, and market relevance.\n\nEfforts were also directed toward outcome-based education, ensuring that course objectives are clearly defined and measurable. Faculty members actively participated in curriculum development workshops and training sessions. As a result, there has been a noticeable improvement in student performance, pass rates, and overall academic outcomes compared to previous years.",
+    "researchProgress": "The institution made commendable progress in promoting research and innovation. Several research projects were successfully completed across different departments, contributing to knowledge creation and practical solutions.\n\nFaculty and students actively participated in national and international conferences, presenting research papers and sharing insights. The institution also encouraged interdisciplinary collaboration to enhance innovation. A number of research papers were published in reputed journals, and steps were taken toward patent filing for innovative projects.\n\nResearch culture was further strengthened through the organization of seminars, workshops, and guest lectures, fostering an environment of inquiry and creativity.",
+    "adminProgress": "Administrative processes were streamlined to improve efficiency, transparency, and accountability. Key policy updates were implemented to ensure better governance and compliance with regulatory requirements.\n\nVarious committees were formed and strengthened to oversee academic, administrative, and student-related activities. Digitalization of administrative processes—such as admissions, records management, and communication—helped reduce delays and improve service delivery.\n\nRegular meetings and reviews ensured participatory decision-making and effective implementation of institutional policies.",
+    "qualityProgress": "The institution continued its commitment to quality assurance through active Quality Assurance and Accreditation Committee (QAAC) initiatives. Regular internal audits and reviews were conducted to monitor academic and administrative performance.\n\nA structured student feedback system was implemented and strengthened, allowing students to provide input on teaching quality, curriculum, and facilities. Feedback analysis led to actionable improvements in teaching methodologies and infrastructure.\n\nWorkshops on quality enhancement, teaching innovation, and professional development were organized for faculty and staff, contributing to continuous improvement.",
+    "majorChallenges": "Despite notable progress, several challenges were encountered during the year:\n\nLimited financial resources affecting infrastructure development and research funding\nNeed for greater industry collaboration to enhance employability and practical exposure\nAdaptation to rapidly changing technologies and digital learning environments\nFaculty workload balancing between teaching, research, and administrative duties\nEnsuring consistent student engagement and motivation in blended/online learning settings\n\nThese challenges required strategic planning and adaptive measures to mitigate their impact.",
+    "nextYearPlan": "To build on current achievements and address existing challenges, the following action plan is proposed:\n\nAcademic Development: Introduce more skill-based and interdisciplinary programs; continue curriculum modernization\nResearch Enhancement: Increase funding support, promote collaborative research, and encourage patent-oriented projects\nFaculty Development: Organize advanced training, workshops, and exposure programs for faculty members\nInfrastructure Improvement: Upgrade laboratories, digital resources, and learning facilities\nIndustry Linkages: Strengthen partnerships with industries for internships, training, and placements\nQuality Assurance: Further strengthen QAAC activities and data-driven decision-making\nStudent Support: Enhance mentoring systems, career counseling, and extracurricular engagement opportunities",
+    "headName": "ram sharma",
+    "principalName": "shyam paudel",
+    "submittedBy": "sumit aryal",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 234000,
+        "actualExpenditure": 12000,
+        "revenueGenerated": 1222,
+        "sources": [
+          "TU grant",
+          "fees"
+        ]
+      },
+      "capital": {
+        "annualBudget": 124000,
+        "actualExpenditure": 12900,
+        "revenueGenerated": 12000,
+        "sources": [
+          "tu grant",
+          "tu fees"
+        ]
+      },
+      "operational": {
+        "annualBudget": 1200000,
+        "actualExpenditure": 23000,
+        "revenueGenerated": 12000,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 45000,
+        "actualExpenditure": 12000,
+        "revenueGenerated": 6789,
+        "sources": [
+          "jackle",
+          ""
+        ]
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775403568/tu-progress-reports/Campus123/2082-2083/financial/auditedFinancialStatements_Campus123_1775403565283.pdf",
+        "auditedFinancialStatementsFilename": "nist.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775403581/tu-progress-reports/Campus123/2082-2083/financial/budgetCopy_Campus123_1775403579277.pdf",
+        "budgetCopyFilename": "2026-04-05 14-59.pdf"
+      },
+      "totalAnnualBudget": 1603000,
+      "totalActualExpenditure": 59900,
+      "totalRevenueGenerated": 32011
+    },
+    "createdAt": "2026-04-05T15:44:01.240Z",
+    "updatedAt": "2026-04-05T15:44:01.240Z"
+  },
+  {
+    "id": "1775404234592",
+    "collegeId": "fdsfdsfdasfds",
+    "collegeName": "sdfsfdsf",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-05",
+    "totalStudents": 50,
+    "programs": [
+      {
+        "institution": "Institute of Engineering (IOE)",
+        "level": "Bachelor",
+        "programName": "Agriculture Engineering",
+        "totalStudents": 50,
+        "maleStudents": 45,
+        "femaleStudents": 5,
+        "scholarshipStudents": 4,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 4,
+        "graduatedStudents": 5,
+        "passPercentage": 3,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404172/tu-progress-reports/fdsfdsfdasfds/2082-2083/Agriculture_Engineering_1775404169619.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/fdsfdsfdasfds/2082-2083/Agriculture_Engineering_1775404169619"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 5465,
+    "labCount": 545,
+    "libraryBooks": 434,
+    "itConnectivity": "Good",
+    "academicProgress": "dfgdgfdsg",
+    "researchProgress": "gdfsgdfg",
+    "adminProgress": "dfgsdfgfdsg",
+    "qualityProgress": "fdgsdfgfdg",
+    "majorChallenges": "dfsggfdsg",
+    "nextYearPlan": "dfsgdfgdfsgsdfg",
+    "headName": "dsgdfgfdgfg",
+    "principalName": "dfgfdsgfdgdfsg",
+    "submittedBy": "gfdgfdgfdgfdg",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 4345,
+        "actualExpenditure": 64,
+        "revenueGenerated": 43,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 343,
+        "actualExpenditure": 564,
+        "revenueGenerated": 65,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 466,
+        "actualExpenditure": 57,
+        "revenueGenerated": 7665,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 676,
+        "actualExpenditure": 544,
+        "revenueGenerated": 3454,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404195/tu-progress-reports/fdsfdsfdasfds/2082-2083/financial/auditedFinancialStatements_fdsfdsfdasfds_1775404194568.pdf",
+        "auditedFinancialStatementsFilename": "nist.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404204/tu-progress-reports/fdsfdsfdasfds/2082-2083/financial/budgetCopy_fdsfdsfdasfds_1775404202233.pdf",
+        "budgetCopyFilename": "2026-04-05 14-59.pdf"
+      },
+      "totalAnnualBudget": 5830,
+      "totalActualExpenditure": 1229,
+      "totalRevenueGenerated": 11227
+    },
+    "createdAt": "2026-04-05T15:50:34.592Z",
+    "updatedAt": "2026-04-05T15:50:34.592Z"
+  },
+  {
+    "id": "1775404981406",
+    "collegeId": "uyttytrytrt",
+    "collegeName": "milyo",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-05",
+    "totalStudents": 979,
+    "programs": [
+      {
+        "institution": "Institute of Engineering (IOE)",
+        "level": "Master",
+        "programName": "Hydropower Engineering",
+        "totalStudents": 979,
+        "maleStudents": 434,
+        "femaleStudents": 545,
+        "scholarshipStudents": 43,
+        "isScholarshipRuleApplied": false,
+        "newAdmissions": 3454,
+        "graduatedStudents": 455,
+        "passPercentage": 56,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404748/tu-progress-reports/uyttytrytrt/2082-2083/Hydropower_Engineering_1775404745064.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/uyttytrytrt/2082-2083/Hydropower_Engineering_1775404745064"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Planned",
+    "classroomCount": 678,
+    "labCount": 454,
+    "libraryBooks": 453,
+    "itConnectivity": "Good",
+    "academicProgress": "fdfdsfdsf dsfds fdsf",
+    "researchProgress": " dsafsdafsd dsf sdfsfas",
+    "adminProgress": "sfs dfs fsdfasfasdfd",
+    "qualityProgress": "dsf dsfasd fdsfdsf dsfsdaf",
+    "majorChallenges": "asdf sdfsad fdsf dfdsfasdf",
+    "nextYearPlan": "dsf dsfdsf dsafdsfdsfsdf",
+    "headName": "Ramssfddsf dsf",
+    "principalName": "dfdsfdsfdsfsdf",
+    "submittedBy": "fdsafdsfdsfds fds ffsdfsf ",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 3454,
+        "actualExpenditure": 45,
+        "revenueGenerated": 454,
+        "sources": [
+          "TU Grant"
+        ]
+      },
+      "capital": {
+        "annualBudget": 43434,
+        "actualExpenditure": 45443,
+        "revenueGenerated": 64,
+        "sources": [
+          "TU grant ",
+          "Fees",
+          "Other"
+        ]
+      },
+      "operational": {
+        "annualBudget": 435435,
+        "actualExpenditure": 45,
+        "revenueGenerated": 454,
+        "sources": [
+          "TU grant ",
+          "Fees",
+          "Other",
+          ""
+        ]
+      },
+      "research": {
+        "annualBudget": 45454,
+        "actualExpenditure": 5453,
+        "revenueGenerated": 35445,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404831/tu-progress-reports/uyttytrytrt/2082-2083/financial/auditedFinancialStatements_uyttytrytrt_1775404830453.pdf",
+        "auditedFinancialStatementsFilename": "nist.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775404839/tu-progress-reports/uyttytrytrt/2082-2083/financial/budgetCopy_uyttytrytrt_1775404838487.pdf",
+        "budgetCopyFilename": "2026-04-05 14-59.pdf"
+      },
+      "totalAnnualBudget": 527777,
+      "totalActualExpenditure": 50986,
+      "totalRevenueGenerated": 36417
+    },
+    "createdAt": "2026-04-05T16:03:01.406Z",
+    "updatedAt": "2026-04-05T16:03:01.406Z"
+  },
+  {
+    "id": "1775405785900",
+    "collegeId": "dfdfaf434",
+    "collegeName": "fdsafdsf dsf",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-05",
+    "totalStudents": 478,
+    "programs": [
+      {
+        "institution": "Institute of Engineering (IOE)",
+        "level": "Master",
+        "programName": "Renewable Energy Engineering",
+        "totalStudents": 478,
+        "maleStudents": 435,
+        "femaleStudents": 43,
+        "scholarshipStudents": 45,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 54,
+        "graduatedStudents": 767,
+        "passPercentage": 4,
+        "approvalLetterPath": null,
+        "approvalLetterFilename": null,
+        "cloudinaryPublicId": null
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "",
+    "classroomCount": 0,
+    "labCount": 0,
+    "libraryBooks": 0,
+    "itConnectivity": "",
+    "academicProgress": "",
+    "researchProgress": "",
+    "adminProgress": "",
+    "qualityProgress": "",
+    "majorChallenges": "",
+    "nextYearPlan": "fdgfdg",
+    "headName": "",
+    "principalName": "",
+    "submittedBy": "",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 0,
+        "actualExpenditure": 0,
+        "revenueGenerated": 0,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 0,
+        "actualExpenditure": 0,
+        "revenueGenerated": 0,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 0,
+        "actualExpenditure": 0,
+        "revenueGenerated": 0,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 0,
+        "actualExpenditure": 0,
+        "revenueGenerated": 0,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": null,
+        "auditedFinancialStatementsFilename": null,
+        "budgetCopy": null,
+        "budgetCopyFilename": null
+      },
+      "totalAnnualBudget": 0,
+      "totalActualExpenditure": 0,
+      "totalRevenueGenerated": 0
+    },
+    "createdAt": "2026-04-05T16:16:25.900Z",
+    "updatedAt": "2026-04-05T16:16:25.900Z"
   }
 ]

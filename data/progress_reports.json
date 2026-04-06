@@ -2120,5 +2120,335 @@
     },
     "createdAt": "2026-04-05T16:16:25.900Z",
     "updatedAt": "2026-04-05T16:16:25.900Z"
+  },
+  {
+    "id": "1775458837735",
+    "collegeId": "nepalcollege12",
+    "collegeName": "nepal college",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-06",
+    "totalStudents": 4408,
+    "programs": [
+      {
+        "institution": "Faculty of Management (FoM)",
+        "level": "Master",
+        "programName": "Master of Business Studies (MBS)",
+        "totalStudents": 4408,
+        "maleStudents": 4354,
+        "femaleStudents": 54,
+        "scholarshipStudents": 45,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 435,
+        "graduatedStudents": 54,
+        "passPercentage": 64,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775458758/tu-progress-reports/nepalcollege12/2082-2083/Master_of_Business_Studies_%28MBS%29_1775458750959.pdf",
+        "approvalLetterFilename": "2026-04-05 14-59.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/nepalcollege12/2082-2083/Master_of_Business_Studies_(MBS)_1775458750959"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 433,
+    "labCount": 545,
+    "libraryBooks": 34,
+    "itConnectivity": "Good",
+    "academicProgress": "sdfdsfdsfadsf",
+    "researchProgress": "dfadsfdsfsaf",
+    "adminProgress": "sdfdsfdsfdsafgfddfg",
+    "qualityProgress": "fhfhfghf4543r",
+    "majorChallenges": "fdadffhfhfh",
+    "nextYearPlan": "hfhfrrtrtret",
+    "headName": "ramhari",
+    "principalName": "dsffsdf",
+    "submittedBy": "dsfdsfdsafdsf",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 3454,
+        "actualExpenditure": 453,
+        "revenueGenerated": 434,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 4645,
+        "actualExpenditure": 565,
+        "revenueGenerated": 43434,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 46565,
+        "actualExpenditure": 232342,
+        "revenueGenerated": 4334,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 4565,
+        "actualExpenditure": 4332,
+        "revenueGenerated": 45454,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775458788/tu-progress-reports/nepalcollege12/2082-2083/financial/auditedFinancialStatements_nepalcollege12_1775458786240.pdf",
+        "auditedFinancialStatementsFilename": "nist.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775458793/tu-progress-reports/nepalcollege12/2082-2083/financial/budgetCopy_nepalcollege12_1775458791644.pdf",
+        "budgetCopyFilename": "2026-04-05 14-59.pdf"
+      },
+      "totalAnnualBudget": 59229,
+      "totalActualExpenditure": 237692,
+      "totalRevenueGenerated": 93656
+    },
+    "createdAt": "2026-04-06T07:00:37.735Z",
+    "updatedAt": "2026-04-06T07:00:37.735Z"
+  },
+  {
+    "id": "1775459640245",
+    "collegeId": "finalcampus23",
+    "collegeName": "finalcampusname",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-06",
+    "totalStudents": 7765,
+    "programs": [
+      {
+        "institution": "Institute of Forestry (IOF)",
+        "level": "Master",
+        "programName": "M.Sc. Natural Resources Management and Rural Development",
+        "totalStudents": 7765,
+        "maleStudents": 4334,
+        "femaleStudents": 3431,
+        "scholarshipStudents": 453,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 244,
+        "graduatedStudents": 453,
+        "passPercentage": 23,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775459480/tu-progress-reports/finalcampus23/2082-2083/M.Sc._Natural_Resources_Management_and_Rural_Development_1775459472700.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/finalcampus23/2082-2083/M.Sc._Natural_Resources_Management_and_Rural_Development_1775459472700"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 4354,
+    "labCount": 343,
+    "libraryBooks": 5445,
+    "itConnectivity": "Good",
+    "academicProgress": "descriptiondfdf",
+    "researchProgress": "fhhhfghgfhfhd",
+    "adminProgress": "rteretreryry",
+    "qualityProgress": "gfdffghffdgd",
+    "majorChallenges": "ncvnvnbvnbvn",
+    "nextYearPlan": "hjkhkjhkjk",
+    "headName": "headqacc",
+    "principalName": "kaligandakicampuschief",
+    "submittedBy": "kaligandakisubmitted",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 4354,
+        "actualExpenditure": 6556,
+        "revenueGenerated": 3434,
+        "sources": []
+      },
+      "capital": {
+        "annualBudget": 5466,
+        "actualExpenditure": 4354,
+        "revenueGenerated": 2323,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 565,
+        "actualExpenditure": 77,
+        "revenueGenerated": 4545,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 4345,
+        "actualExpenditure": 5666,
+        "revenueGenerated": 345,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775459512/tu-progress-reports/finalcampus23/2082-2083/financial/auditedFinancialStatements_finalcampus23_1775459508994.pdf",
+        "auditedFinancialStatementsFilename": "nist.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775459522/tu-progress-reports/finalcampus23/2082-2083/financial/budgetCopy_finalcampus23_1775459519706.pdf",
+        "budgetCopyFilename": "2026-04-05 14-59.pdf"
+      },
+      "totalAnnualBudget": 14730,
+      "totalActualExpenditure": 16653,
+      "totalRevenueGenerated": 10647
+    },
+    "createdAt": "2026-04-06T07:14:00.245Z",
+    "updatedAt": "2026-04-06T07:14:00.245Z"
+  },
+  {
+    "id": "1775460287123",
+    "collegeId": "campusIdfdsf",
+    "collegeName": "Campusname12",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-06",
+    "totalStudents": 4598,
+    "programs": [
+      {
+        "institution": "Faculty of Education (FoE)",
+        "level": "Post Graduate Diploma",
+        "programName": "Post-Graduate Diploma in Education (Three-Semester)",
+        "totalStudents": 4598,
+        "maleStudents": 44,
+        "femaleStudents": 4554,
+        "scholarshipStudents": 45,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 43,
+        "graduatedStudents": 39,
+        "passPercentage": 43,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775460202/tu-progress-reports/campusIdfdsf/2082-2083/Post-Graduate_Diploma_in_Education_%28Three-Semester%29_1775460199336.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/campusIdfdsf/2082-2083/Post-Graduate_Diploma_in_Education_(Three-Semester)_1775460199336"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "In Progress",
+    "classroomCount": 43,
+    "labCount": 34,
+    "libraryBooks": 5454,
+    "itConnectivity": "Good",
+    "academicProgress": "sdfsafdsf",
+    "researchProgress": "sdfdsafdfgfdg",
+    "adminProgress": "sadfsgafsd",
+    "qualityProgress": "dsfadsfdsfsfsdf",
+    "majorChallenges": "fsafsdgdsfdsf",
+    "nextYearPlan": "sdfdsafdasfdsfdsafdsf",
+    "headName": "fsdafdsfgdfgfdg",
+    "principalName": "fdgfdgfdgfd",
+    "submittedBy": "gfgsfsdfsadfdsf",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 43344,
+        "actualExpenditure": 3434,
+        "revenueGenerated": 3434,
+        "sources": [
+          "dfsfsf"
+        ]
+      },
+      "capital": {
+        "annualBudget": 453543,
+        "actualExpenditure": 34534,
+        "revenueGenerated": 454354,
+        "sources": []
+      },
+      "operational": {
+        "annualBudget": 454354543,
+        "actualExpenditure": 43345,
+        "revenueGenerated": 44340,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 4534534,
+        "actualExpenditure": 34543643,
+        "revenueGenerated": 4535344,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775460248/tu-progress-reports/campusIdfdsf/2082-2083/financial/auditedFinancialStatements_campusIdfdsf_1775460246707.pdf",
+        "auditedFinancialStatementsFilename": "2026-04-05 14-59.pdf",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775460259/tu-progress-reports/campusIdfdsf/2082-2083/financial/budgetCopy_campusIdfdsf_1775460258346.pdf",
+        "budgetCopyFilename": "tech_dsp-pc_bigyapan-2082-12-20-fn_1.pdf"
+      },
+      "totalAnnualBudget": 459385964,
+      "totalActualExpenditure": 34624956,
+      "totalRevenueGenerated": 5037472
+    },
+    "createdAt": "2026-04-06T07:24:47.124Z",
+    "updatedAt": "2026-04-06T07:24:47.124Z"
+  },
+  {
+    "id": "1775460557480",
+    "collegeId": "testgindsf3243",
+    "collegeName": "44fdsfadsfsdf",
+    "academicYear": "2082-2083",
+    "submissionDate": "2026-04-06",
+    "totalStudents": 488,
+    "programs": [
+      {
+        "institution": "Faculty of Law (FoL)",
+        "level": "Bachelor",
+        "programName": "B.A.LL.B. (Bachelor of Arts-Bachelor of Laws) - 5 years",
+        "totalStudents": 488,
+        "maleStudents": 434,
+        "femaleStudents": 54,
+        "scholarshipStudents": 54,
+        "isScholarshipRuleApplied": true,
+        "newAdmissions": 4554,
+        "graduatedStudents": 54,
+        "passPercentage": 545,
+        "approvalLetterPath": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775460403/tu-progress-reports/testgindsf3243/2082-2083/B.A.LL.B._%28Bachelor_of_Arts-Bachelor_of_Laws%29_-_5_years_1775460401545.pdf",
+        "approvalLetterFilename": "nist.pdf",
+        "cloudinaryPublicId": "tu-progress-reports/testgindsf3243/2082-2083/B.A.LL.B._(Bachelor_of_Arts-Bachelor_of_Laws)_-_5_years_1775460401545"
+      }
+    ],
+    "approvedBudget": 0,
+    "actualExpenditure": 0,
+    "revenueGenerated": 0,
+    "buildingStatus": "Complete",
+    "classroomCount": 44,
+    "labCount": 0,
+    "libraryBooks": 5656,
+    "itConnectivity": "Good",
+    "academicProgress": "dfadfdsf",
+    "researchProgress": "afdgfdgf",
+    "adminProgress": "dsfdasfds",
+    "qualityProgress": "dsfdsafd",
+    "majorChallenges": "dfgdfgfdgf",
+    "nextYearPlan": "dfgfgfds",
+    "headName": "dfgfdgsdfgff",
+    "principalName": "ffdgfdgfdg",
+    "submittedBy": "dfgdfgfdgfdg",
+    "financialStatus": {
+      "salaries": {
+        "annualBudget": 454,
+        "actualExpenditure": 45,
+        "revenueGenerated": 450,
+        "sources": [
+          "fdsfsdf",
+          "sdfasf"
+        ]
+      },
+      "capital": {
+        "annualBudget": 456465,
+        "actualExpenditure": 456456,
+        "revenueGenerated": 5645643,
+        "sources": [
+          "fdsafdsfdsa ",
+          "fdsfdsafdsf",
+          "fsf dsf",
+          ""
+        ]
+      },
+      "operational": {
+        "annualBudget": 345463,
+        "actualExpenditure": 34543,
+        "revenueGenerated": 345345,
+        "sources": []
+      },
+      "research": {
+        "annualBudget": 4354354,
+        "actualExpenditure": 54654,
+        "revenueGenerated": 4543535,
+        "sources": []
+      },
+      "attachments": {
+        "auditedFinancialStatements": "https://res.cloudinary.com/dpipulbgm/raw/upload/v1775460445/tu-progress-reports/testgindsf3243/2082-2083/financial/auditedFinancialStatements_testgindsf3243_1775460444906.docx",
+        "auditedFinancialStatementsFilename": "Assignment-1-2026.docx",
+        "budgetCopy": "https://res.cloudinary.com/dpipulbgm/image/upload/v1775460453/tu-progress-reports/testgindsf3243/2082-2083/financial/budgetCopy_testgindsf3243_1775460453454.png",
+        "budgetCopyFilename": "order-confirmation-ORD-1775286398508-162837 (1).png"
+      },
+      "totalAnnualBudget": 5156736,
+      "totalActualExpenditure": 545698,
+      "totalRevenueGenerated": 10534973
+    },
+    "createdAt": "2026-04-06T07:29:17.481Z",
+    "updatedAt": "2026-04-06T07:29:17.481Z"
   }
 ]

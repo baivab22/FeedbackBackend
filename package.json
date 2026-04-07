@@ -7,7 +7,9 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "lint": "echo \"No lint configured for backend\" && exit 0",
-    "seed:campus-list": "node scripts/seedCampusList.js"
+    "seed:campus-list": "node scripts/seedCampusList.js",
+    "migrate:progress-reports": "node scripts/migrateProgressReportsToMongo.js",
+    "migrate:atlas-to-local": "node scripts/migrateAtlasToLocal.js"
   },
   "keywords": [
     "express",

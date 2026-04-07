@@ -10,6 +10,7 @@ const { Suggestion, CATEGORIES, STATUSES } = require('../models/Suggestion');
 const { Department } = require('../models/Department');
 const { verifyJWT, optionalAuth, requireRole } = require('../middleware/auth');
 const progressController = require('../controllers/ProgressController');
+const ProgressReport = require('../models/ProgressReport');
 const FacultyFormController = require('../controllers/facultyForm.controller');
 // const collegeFormController = require('../controllers/collegeForm.controller');
 
@@ -2240,11 +2241,101 @@ router.get('/api/colleges/budget/utilization-tracking', async (req, res) => {
 
 
 
-router.get('/api/progress', progressController.getAllReports);
-router.get('/api/progress/analytics', progressController.getAnalytics);
-router.get('/api/progress/export/csv', progressController.exportCSV);
-router.get('/api/progress/college/:collegeId', progressController.getReportsByCollege);
-router.get('/api/progress/:id', progressController.getReportById);
+router.get('/api/progress', async (req, res) => {
+  try {
+    const reports = await ProgressReport.getAllReports();
+    return res.json({
+      success: true,
+      data: reports,
+      count: reports.length,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error fetching reports',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/api/progress/analytics', async (req, res) => {
+  try {
+    const analytics = await ProgressReport.getAnalytics();
+    return res.json({
+      success: true,
+      data: analytics,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error fetching analytics',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/api/progress/export/csv', async (req, res) => {
+  try {
+    const reports = await ProgressReport.getAllReports();
+    if (reports.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No data to export',
+      });
+    }
+
+    return res.status(501).json({
+      success: false,
+      message: 'CSV export is not implemented in the legacy /api/progress route. Use /api/reports/export/csv if needed.',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error exporting CSV',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/api/progress/college/:collegeId', async (req, res) => {
+  try {
+    const { collegeId } = req.params;
+    const reports = await ProgressReport.getReportsByCollege(collegeId);
+    return res.json({
+      success: true,
+      data: reports,
+      count: reports.length,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error fetching college reports',
+      error: error.message,
+    });
+  }
+});
+
+router.get('/api/progress/:id', async (req, res) => {
+  try {
+    const report = await ProgressReport.getReportById(req.params.id);
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: 'Report not found',
+      });
+    }
+    return res.json({
+      success: true,
+      data: report,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error fetching report',
+      error: error.message,
+    });
+  }
+});
 
 // Campus List CRUD
 router.get('/api/campus-list', campusListController.listCampusRecords);
@@ -2326,10 +2417,49 @@ router.get('/api/collegeform/my-forms', getMyCollegeForms);
 
 
 
-router.post('/api/progress', progressController.createReport);
+router.post('/api/progress', async (req, res) => {
+  try {
+    const reportData = req.body;
+    const newReport = await ProgressReport.createReport(reportData);
+
+    return res.status(201).json({
+      success: true,
+      message: 'Progress report created successfully',
+      data: newReport,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error creating report',
+      error: error.message,
+    });
+  }
+});
 
 // PUT routes
-router.put('/api/progress/:id', progressController.updateReport);
+router.put('/api/progress/:id', async (req, res) => {
+  try {
+    const updatedReport = await ProgressReport.updateReport(req.params.id, req.body);
+    if (!updatedReport) {
+      return res.status(404).json({
+        success: false,
+        message: 'Report not found',
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: 'Progress report updated successfully',
+      data: updatedReport,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error updating report',
+      error: error.message,
+    });
+  }
+});
 
 
 
@@ -2360,7 +2490,29 @@ router.delete('/api/donater/:id', Donater.deleteDonor);
 // router.get('/', getFacultyForms);
 
 // DELETE routesi
-router.delete('/api/progress/:id', progressController.deleteReport);
+router.delete('/api/progress/:id', async (req, res) => {
+  try {
+    const report = await ProgressReport.getReportById(req.params.id);
+    if (!report) {
+      return res.status(404).json({
+        success: false,
+        message: 'Report not found',
+      });
+    }
+
+    await ProgressReport.deleteReport(req.params.id);
+    return res.json({
+      success: true,
+      message: 'Progress report deleted successfully',
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Error deleting report',
+      error: error.message,
+    });
+  }
+});
 
 // POST routes
 router.post('/', progressController.createReport);

@@ -6,10 +6,21 @@ const nodemailer = require('nodemailer');
 const router = express.Router();
 
 const progressOtpStore = new Map();
-const PROGRESS_OTP_TTL_MS = Number(process.env.PROGRESS_OTP_TTL_MS || 10 * 60 * 1000);
-const PROGRESS_OTP_RESEND_COOLDOWN_MS = Number(process.env.PROGRESS_OTP_RESEND_COOLDOWN_MS || 60 * 1000);
-const PROGRESS_OTP_MAX_ATTEMPTS = Number(process.env.PROGRESS_OTP_MAX_ATTEMPTS || 5);
-const PROGRESS_VERIFICATION_TOKEN_TTL = process.env.PROGRESS_VERIFICATION_TOKEN_TTL || '1h';
+const PROGRESS_OTP_TTL_MS = 10 * 60 * 1000;
+const PROGRESS_OTP_RESEND_COOLDOWN_MS = 60 * 1000;
+const PROGRESS_OTP_MAX_ATTEMPTS = 5;
+const PROGRESS_VERIFICATION_TOKEN_TTL = '1h';
+const PROGRESS_OTP_ALLOW_CONSOLE_FALLBACK = false;
+const PROGRESS_JWT_SECRET = 'replace_with_strong_secret';
+
+const SMTP_CONFIG = {
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  user: 'planingdirectoratetu@gmail.com',
+  pass: 'jjuu pqpt zfbh qxlm',
+  fromAddress: 'planingdirectoratetu@gmail.com',
+};
 
 function normalizeEmail(email) {
   return String(email || '').trim().toLowerCase();
@@ -24,14 +35,14 @@ function generateOtp() {
 }
 
 function getProgressMailerConfig() {
-  const user = process.env.SMTP_USER || process.env.MAIL_USER;
-  const isGmailUser = /@gmail\.com$/i.test(String(user || ''));
-  const host = process.env.SMTP_HOST || process.env.MAIL_HOST || (isGmailUser ? 'smtp.gmail.com' : '');
-  const port = Number(process.env.SMTP_PORT || process.env.MAIL_PORT || (isGmailUser ? 465 : 0));
-  const pass = process.env.SMTP_PASS || process.env.MAIL_PASS;
-  const fromAddress = process.env.MAIL_SENDER_EMAIL || process.env.MAIL_FROM || process.env.SMTP_FROM || user || '';
+  const host = String(SMTP_CONFIG.host || '').trim();
+  const port = Number(SMTP_CONFIG.port || 0);
+  const secure = Boolean(SMTP_CONFIG.secure);
+  const user = String(SMTP_CONFIG.user || '').trim();
+  const pass = String(SMTP_CONFIG.pass || '');
+  const fromAddress = String(SMTP_CONFIG.fromAddress || '').trim();
 
-  if (!host || !port || !user || !pass) {
+  if (!host || !port || !fromAddress) {
     return {
       configured: false,
       mailer: null,
@@ -39,13 +50,18 @@ function getProgressMailerConfig() {
     };
   }
 
+  const auth = user && pass ? { user, pass } : undefined;
+
   return {
     configured: true,
     mailer: nodemailer.createTransport({
       host,
       port,
-      secure: String(process.env.SMTP_SECURE || process.env.MAIL_SECURE || '').toLowerCase() === 'true' || port === 465,
-      auth: { user, pass },
+      secure,
+      auth,
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 10000,
     }),
     fromAddress,
   };
@@ -86,7 +102,7 @@ async function sendProgressOtpEmail(email, otp) {
     return { deliveryMode: 'smtp', delivered: true, configured };
   }
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (PROGRESS_OTP_ALLOW_CONSOLE_FALLBACK) {
     console.warn(`[progress-otp] SMTP is not configured. OTP for ${email}: ${otp}`);
     return { deliveryMode: 'console', delivered: false, configured };
   }
@@ -97,7 +113,7 @@ async function sendProgressOtpEmail(email, otp) {
 function signProgressVerificationToken(email) {
   return jwt.sign(
     { sub: email, email, purpose: 'progress-form-otp' },
-    process.env.JWT_SECRET,
+    PROGRESS_JWT_SECRET,
     { expiresIn: PROGRESS_VERIFICATION_TOKEN_TTL }
   );
 }
@@ -116,10 +132,10 @@ router.post('/request', async (req, res) => {
     cleanupExpiredProgressOtps();
 
     const { configured } = getProgressMailerConfig();
-    if (!configured && process.env.NODE_ENV === 'production') {
+    if (!configured && !PROGRESS_OTP_ALLOW_CONSOLE_FALLBACK) {
       return res.status(503).json({
         success: false,
-        message: 'Email service is not configured on the server. OTP delivery is unavailable until SMTP settings are added.',
+        message: 'Email service is not configured on the server. Configure SMTP or explicitly enable PROGRESS_OTP_ALLOW_CONSOLE_FALLBACK=true for non-email environments.',
         configured: false,
       });
     }

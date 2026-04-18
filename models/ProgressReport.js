@@ -59,6 +59,7 @@ const progressReportSchema = new mongoose.Schema(
     legacyId: { type: String, index: true, sparse: true },
     collegeId: { type: String, required: true, trim: true, index: true },
     collegeName: { type: String, required: true, trim: true, index: true },
+    verificationEmail: { type: String, trim: true, lowercase: true, default: '' },
     academicYear: { type: String, required: true, trim: true, index: true },
     programs: { type: [programSchema], default: [] },
     totalStudents: { type: Number, default: 0, min: 0 },

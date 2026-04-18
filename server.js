@@ -40,7 +40,7 @@ const allowedOrigins = [
 // Debug logging (remove in production)
 console.log('🔍 Allowed CORS Origins:', allowedOrigins);
 
-app.use(cors({
+const corsOptions = {
   origin: function (origin, callback) {
     // Allow requests with no origin (mobile apps, Postman, etc.)
     if (!origin) return callback(null, true);
@@ -55,11 +55,13 @@ app.use(cors({
   },
   credentials: true, // allow cookies / auth headers
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Progress-Verification-Token']
+};
+
+app.use(cors(corsOptions));
 
 // ✅ Handle preflight requests globally
-app.options('*', cors());
+app.options('*', cors(corsOptions));
 
 // ---------------- Security middlewares ----------------
 app.use(express.json({ limit: '1mb' }));
@@ -102,6 +104,7 @@ app.use('/api/auth', authLimiter);
 app.use('/api/suggestions', rateLimit({ windowMs: 15 * 60 * 1000, max: 200 }));
 app.use('/api/reports', require('./routes/progressReports'));
 // app.use('/api/progress', progressRoutes);
+app.use('/api/progress/otp', require('./routes/progressOtp.routes'));
 
 // app.use('/api/progress', progressRoutes);
 

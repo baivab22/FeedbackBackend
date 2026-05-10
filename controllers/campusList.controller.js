@@ -18,12 +18,17 @@ exports.listCampusRecords = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const district = normalizeString(req.query.district);
+    const collegeType = normalizeString(req.query.collegeType || req.query.campusType);
     const search = normalizeString(req.query.search || req.query.q);
 
     const filter = {};
 
     if (district) {
       filter.District = { $regex: district, $options: 'i' };
+    }
+
+    if (collegeType) {
+      filter.collegeType = { $regex: `^${collegeType}$`, $options: 'i' };
     }
 
     if (search) {
@@ -106,6 +111,8 @@ exports.createCampusRecord = async (req, res) => {
       principlename: normalizeString(payload.principlename),
       contactNumber: normalizeString(payload.contactNumber),
       emailAddress: normalizeString(payload.emailAddress),
+      location: normalizeString(payload.location),
+      collegeType: normalizeString(payload.collegeType || payload.campusType),
     });
 
     return res.status(201).json({ success: true, message: 'Campus created successfully', data: campus });
@@ -149,6 +156,10 @@ exports.updateCampusRecord = async (req, res) => {
     if (payload.principlename !== undefined) campus.principlename = normalizeString(payload.principlename);
     if (payload.contactNumber !== undefined) campus.contactNumber = normalizeString(payload.contactNumber);
     if (payload.emailAddress !== undefined) campus.emailAddress = normalizeString(payload.emailAddress);
+    if (payload.location !== undefined) campus.location = normalizeString(payload.location);
+    if (payload.collegeType !== undefined || payload.campusType !== undefined) {
+      campus.collegeType = normalizeString(payload.collegeType || payload.campusType);
+    }
 
     if (!campus.campusname || !campus.District) {
       return res.status(400).json({ success: false, message: 'campusname and District are required' });

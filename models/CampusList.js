@@ -51,6 +51,19 @@ const campusListSchema = new mongoose.Schema(
       default: '',
       maxlength: 200,
     },
+    location: {
+      type: String,
+      trim: true,
+      default: '',
+      maxlength: 500,
+    },
+    collegeType: {
+      type: String,
+      trim: true,
+      default: '',
+      maxlength: 80,
+      index: true,
+    },
   },
   {
     timestamps: true,

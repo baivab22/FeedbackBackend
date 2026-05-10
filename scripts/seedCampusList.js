@@ -13,7 +13,7 @@ function toSafeString(value) {
 }
 
 async function seedCampusList() {
-  const dataPath = path.resolve(__dirname, '../../mypr/src/data/campusList.json');
+  const dataPath = path.resolve(__dirname, '../data/campusList.json');
   const dryRun = process.argv.includes('--dry-run');
 
   if (!fs.existsSync(dataPath)) {

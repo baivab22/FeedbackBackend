@@ -17,9 +17,9 @@ const SMTP_CONFIG = {
   host: 'smtp.gmail.com',
   port: 465,
   secure: true,
-  user: 'planingdirectoratetu@gmail.com',
-  pass: 'jjuu pqpt zfbh qxlm',
-  fromAddress: 'planingdirectoratetu@gmail.com',
+  user: 'planningdirectoratefortu@gmail.com',
+  pass: 'exsd dsjr xpoa pfuf',
+  fromAddress: 'planningdirectoratefortu@gmail.com',
 };
 
 function normalizeEmail(email) {
